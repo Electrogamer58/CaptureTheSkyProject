@@ -5,15 +5,23 @@ using UnityEngine.InputSystem;
 
 public class NodeMovement : MonoBehaviour
 {
-    // [SerializeField] NodeObject _startingNode;
+    [Header("General Settings")]
     [SerializeField] Vector2 _startingNodeCoordinates;
-    [SerializeField] public NodeObject CurrentNode { get; private set; }
     [SerializeField] SpriteRenderer _targetSprite;
-
     [SerializeField] Vector3 _axis = Vector3.forward;
+
+    [Header("Movement Setting")]
+    [SerializeField] float _movementSpeed = 2f;
+    // [SerializeField] float _homeTurfSpeedBonus = 0.5f;
+
+    public NodeObject CurrentNode { get; private set; }
+    public bool Moving { get; private set; } = false;
+    // public bool InHomeTurf = false;
 
     InputActionMap _playerActions;
     NodeObject _target = null;
+    NodeObject _movingTo = null;
+    float _currentMovementSpeed = 0;
 
     void OnEnable()
     {
@@ -25,6 +33,8 @@ public class NodeMovement : MonoBehaviour
         _playerActions["Next"].performed += TargetNextNode;
         _playerActions["Confirm"].performed += TravelToTargetNode;
         _playerActions.Enable();
+
+        _currentMovementSpeed = _movementSpeed;
     }
 
     void OnDisable()
@@ -35,6 +45,20 @@ public class NodeMovement : MonoBehaviour
         _playerActions["Next"].performed -= TargetNextNode;
         _playerActions["Confirm"].performed -= TravelToTargetNode;
         _playerActions.Disable();
+    }
+
+    void Update()
+    {
+        if (Moving && transform.position != _movingTo.transform.position)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, _movingTo.transform.position, _currentMovementSpeed * Time.deltaTime);
+            if (transform.position == _movingTo.transform.position)
+            {
+                CurrentNode = _movingTo;
+                _movingTo = null;
+                Moving = false;
+            }
+        }
     }
     
     void OnGridGenerate()
@@ -134,12 +158,13 @@ public class NodeMovement : MonoBehaviour
 
     void TravelToTargetNode(InputAction.CallbackContext value)
     {
-        if (_target != null)
+        if (_target != null && !Moving)
         {
-            NodeObject temp = CurrentNode;
-            CurrentNode = _target;
-            transform.position = _target.transform.position;
-            _target = temp;
+            // NodeObject temp = CurrentNode;
+            _movingTo = _target;
+            Moving = true;
+            // transform.position = _target.transform.position;
+            _target = CurrentNode;
             _targetSprite.transform.position = _target.transform.position;
         }
     }
