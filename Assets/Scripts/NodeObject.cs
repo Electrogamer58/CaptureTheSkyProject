@@ -7,8 +7,8 @@ public class NodeObject : SelectableNode
     public Node Node { get; private set; }
     public int XInt { get; private set; }
     public int YInt { get; private set; }
-
-    private List<NodeObject> Neighbors;
+    public List<NodeObject> Neighbors { get; private set; }
+    
     private GridGenerator GridGenerator;
 
     private void Start()

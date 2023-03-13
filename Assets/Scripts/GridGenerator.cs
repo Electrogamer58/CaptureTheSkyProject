@@ -1,10 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Random = UnityEngine.Random;
 
 public class GridGenerator : MonoBehaviour
 {
+    public static event Action GridGenerated;
+    
     public static float TRIWIDTH = 1.0f;
     public static float TRIOFFSET = TRIWIDTH * 0.5F;
     public static float TRIHEIGHT = Mathf.Sqrt(Mathf.Pow(TRIWIDTH, 2) - Mathf.Pow(TRIOFFSET, 2));
@@ -71,6 +75,8 @@ public class GridGenerator : MonoBehaviour
         cam.transform.position = new Vector3(_centerPoint.x, _centerPoint.y, cam.transform.position.z);
         cam.orthographicSize = gridDimensions * TRIWIDTH * 0.5f;
         //cam.fieldOfView = 6 * gridDimensions * TRIWIDTH;
+
+        GridGenerated?.Invoke();
     }
     private Node[] GenerateNodes(float offset, int width, int height)
     {
