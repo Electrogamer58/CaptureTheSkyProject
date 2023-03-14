@@ -104,7 +104,6 @@ public class GridGenerator : MonoBehaviour
     private Dictionary<Vector2, NodeObject> GenerateNodeGameObjects(Node[] nodes)
     {
         Dictionary<Vector2, NodeObject> nodeObjects = new Dictionary<Vector2, NodeObject>();
-
         foreach (var node in nodes)
         {
             //instantiate game object
