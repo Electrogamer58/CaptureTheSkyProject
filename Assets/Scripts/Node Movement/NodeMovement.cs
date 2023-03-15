@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.U2D;
 
 public class NodeMovement : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class NodeMovement : MonoBehaviour
     [SerializeField] private LineRenderer _lineRenderer = null;
     [SerializeField] private List<LineRenderer> _lineList = null;
     [SerializeField] private GameObject lineListParent;
+    [SerializeField] private SpriteShapeController _spriteShape = null;
+    [SerializeField] private List<SpriteShapeController> _shapeList = null;
 
     public NodeObject CurrentNode { get; private set; }
     public bool Moving { get; private set; } = false;
@@ -200,7 +203,6 @@ public class NodeMovement : MonoBehaviour
             if (_playerTrail)
                 _playerTrail.emitting = true;
             _targetSprite.enabled = false;
-            //stretchBetween(CurrentNode.transform.position, _movingTo.transform.position);
     
             _lastNode = temp;
             _target = _lastNode;
@@ -281,6 +283,18 @@ public class NodeMovement : MonoBehaviour
         }
 
 
+    }
+
+    private void RenderShape(Transform point1, Transform point2, Transform point3)
+    {
+        //foreach (LineRenderer renderer in _lineList)
+        //{
+                if (point1 && point2 && point3) //if three lines share 2 points
+            {
+                //create new sprite shape
+                //add to list
+                //set points
+            }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
