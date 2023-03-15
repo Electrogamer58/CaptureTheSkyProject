@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.U2D;
 
 public class NodeMovement : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class NodeMovement : MonoBehaviour
     [SerializeField] private LineRenderer _lineRenderer = null;
     [SerializeField] private List<LineRenderer> _lineList = null;
     [SerializeField] private GameObject lineListParent;
+    [SerializeField] private SpriteShapeController _spriteShape = null;
+    [SerializeField] private List<SpriteShapeController> _shapeList = null;
 
     public NodeObject CurrentNode { get; private set; }
     public bool Moving { get; private set; } = false;
@@ -33,7 +36,7 @@ public class NodeMovement : MonoBehaviour
 
     InputActionMap _playerActions;
     NodeObject _target = null;
-    NodeObject _movingTo = null;
+    NodeObject _lastNode = null;
     float _currentMovementSpeed = 0;
 
     void OnEnable()
@@ -69,14 +72,12 @@ public class NodeMovement : MonoBehaviour
 
     void Update()
     {
-        if (Moving && transform.position != _movingTo.transform.position)
+        if (Moving && transform.position != CurrentNode.transform.position)
         {
-            transform.position = Vector3.MoveTowards(transform.position, _movingTo.transform.position, _movementSpeed * Time.deltaTime);
-            if (transform.position == _movingTo.transform.position)
+            transform.position = Vector3.MoveTowards(transform.position, CurrentNode.transform.position, _movementSpeed * Time.deltaTime);
+            if (transform.position == CurrentNode.transform.position)
             {
-                RenderLine(CurrentNode.transform, _movingTo.transform);
-                CurrentNode = _movingTo;
-                _movingTo = null;
+                RenderLine(_lastNode.transform, CurrentNode.transform);
                 _playerTrail.emitting = false;
                 Moving = false;
                 _targetSprite.enabled = true;
@@ -111,77 +112,83 @@ public class NodeMovement : MonoBehaviour
 
     void TargetNextNode(InputAction.CallbackContext value)
     {
-        if (_target != null)
+        if (!Moving)
         {
-            Vector3 dirToTarget = _target.transform.position - transform.position;
-
-            NodeObject next = null;
-            float angleToNext = 360f;
-
-            foreach (NodeObject node in CurrentNode.Neighbors)
+            if (_target != null)
             {
-                if (node != _target)
-                {
-                    Vector3 dirToNode = node.transform.position - transform.position;
-                    float angleToNode = Vector3.SignedAngle(dirToTarget, dirToNode, _axis);
-                    if (angleToNode < 0)
-                    {
-                        angleToNode += 360f;
-                    }
+                Vector3 dirToTarget = _target.transform.position - transform.position;
 
-                    if (angleToNode < angleToNext)
+                NodeObject next = null;
+                float angleToNext = 360f;
+
+                foreach (NodeObject node in CurrentNode.Neighbors)
+                {
+                    if (node != _target)
                     {
-                        next = node;
-                        angleToNext = angleToNode;
+                        Vector3 dirToNode = node.transform.position - transform.position;
+                        float angleToNode = Vector3.SignedAngle(dirToTarget, dirToNode, _axis);
+                        if (angleToNode < 0)
+                        {
+                            angleToNode += 360f;
+                        }
+
+                        if (angleToNode < angleToNext)
+                        {
+                            next = node;
+                            angleToNext = angleToNode;
+                        }
                     }
                 }
-            }
 
-            _target = next;
-            _targetSprite.transform.position = _target.transform.position;
-        }
-        else
-        {
-            _target = CurrentNode.Neighbors[0];
-            _targetSprite.transform.position = _target.transform.position;
+                _target = next;
+                _targetSprite.transform.position = _target.transform.position;
+            }
+            else
+            {
+                _target = CurrentNode.Neighbors[0];
+                _targetSprite.transform.position = _target.transform.position;
+            }
         }
     }
 
     void TargetPreviousNode(InputAction.CallbackContext value)
     {
-        if (_target != null)
+        if (!Moving)
         {
-            Vector3 dirToTarget = _target.transform.position - transform.position;
-
-            NodeObject previous = null;
-            float angleToPrevious = 0f;
-
-            foreach (NodeObject node in CurrentNode.Neighbors)
+            if (_target != null)
             {
-                if (node != _target)
-                {
-                    Vector3 dirToNode = node.transform.position - transform.position;
-                    float angleToNode = Vector3.SignedAngle(dirToTarget, dirToNode, _axis);
-                    if (angleToNode < 0)
-                    {
-                        angleToNode += 360f;
-                    }
+                Vector3 dirToTarget = _target.transform.position - transform.position;
 
-                    if (angleToNode > angleToPrevious)
+                NodeObject previous = null;
+                float angleToPrevious = 0f;
+
+                foreach (NodeObject node in CurrentNode.Neighbors)
+                {
+                    if (node != _target)
                     {
-                        previous = node;
-                        angleToPrevious = angleToNode;
+                        Vector3 dirToNode = node.transform.position - transform.position;
+                        float angleToNode = Vector3.SignedAngle(dirToTarget, dirToNode, _axis);
+                        if (angleToNode < 0)
+                        {
+                            angleToNode += 360f;
+                        }
+
+                        if (angleToNode > angleToPrevious)
+                        {
+                            previous = node;
+                            angleToPrevious = angleToNode;
+                        }
                     }
                 }
-            }
 
-            _target = previous;
-            _targetSprite.transform.position = _target.transform.position;
-        }
-        else
-        {
-            _target = CurrentNode.Neighbors[0];
-            _targetSprite.transform.position = _target.transform.position;
+                _target = previous;
+                _targetSprite.transform.position = _target.transform.position;
+            }
+            else
+            {
+                _target = CurrentNode.Neighbors[0];
+                _targetSprite.transform.position = _target.transform.position;
+            }
         }
     }
 
@@ -189,17 +196,16 @@ public class NodeMovement : MonoBehaviour
     {
         if (_target != null && !Moving)
         {
-            // NodeObject temp = CurrentNode;
-            _movingTo = _target;
+            NodeObject temp = CurrentNode;
+            CurrentNode = _target;
             _movementSpeed = _originalMovementSpeed;
             Moving = true;
             if (_playerTrail)
                 _playerTrail.emitting = true;
             _targetSprite.enabled = false;
-            //stretchBetween(CurrentNode.transform.position, _movingTo.transform.position);
     
-            // transform.position = _target.transform.position;
-            _target = CurrentNode;
+            _lastNode = temp;
+            _target = _lastNode;
             _targetSprite.transform.position = _target.transform.position;
         }
     }
@@ -277,6 +283,18 @@ public class NodeMovement : MonoBehaviour
         }
 
 
+    }
+
+    private void RenderShape(Transform point1, Transform point2, Transform point3)
+    {
+        //foreach (LineRenderer renderer in _lineList)
+        //{
+                if (point1 && point2 && point3) //if three lines share 2 points
+            {
+                //create new sprite shape
+                //add to list
+                //set points
+            }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
