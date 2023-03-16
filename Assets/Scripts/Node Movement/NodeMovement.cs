@@ -18,7 +18,6 @@ public class NodeMovement : MonoBehaviour
     private float _originalMovementSpeed;
     private float _increasedMovementSpeed;
     private float _decreasedMovementSpeed;
-    // [SerializeField] float _homeTurfSpeedBonus = 0.5f;
 
     [Header("Visual Settings")]
     [SerializeField] private TrailRenderer _playerTrail;
