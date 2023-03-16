@@ -32,6 +32,7 @@ public class NodeMovement : MonoBehaviour
     public NodeObject CurrentNode { get; private set; }
     public bool Moving { get; private set; } = false;
     [SerializeField] public bool inMyLine = false;
+    private PlayerObject _myPlayerObject = null;
     // public bool InHomeTurf = false;
 
     InputActionMap _playerActions;
@@ -68,6 +69,7 @@ public class NodeMovement : MonoBehaviour
         _originalMovementSpeed = _movementSpeed;
         _increasedMovementSpeed = _movementSpeed *= _movementSpeedMultiplier;
         _decreasedMovementSpeed = _movementSpeed /= 2;
+        _myPlayerObject = gameObject.GetComponent<PlayerObject>();
     }
 
     void Update()
@@ -81,6 +83,8 @@ public class NodeMovement : MonoBehaviour
                 _playerTrail.emitting = false;
                 Moving = false;
                 _targetSprite.enabled = true;
+                CurrentNode._player = _myPlayerObject;
+                RenderShape();
                 //_lineRenderer.gameObject.SetActive(false);
                 if (_playerParticles != null)
                     MakeParticles(_playerParticles, true);
@@ -285,17 +289,26 @@ public class NodeMovement : MonoBehaviour
 
     }
 
-    private void RenderShape(Transform point1, Transform point2, Transform point3)
-    {
-        //foreach (LineRenderer renderer in _lineList)
-        //{
-                if (point1 && point2 && point3) //if three lines share 2 points
-            {
-                //create new sprite shape
-                //add to list
-                //set points
-            }
-    }
+   // private void RenderShape()
+   // {
+   //     foreach (LineRenderer renderer in _lineList)
+   //     {
+   //         for (int i = 0; i < _lineList.Count - 1; i++)
+   //         {
+   //             if ((_lineList[i].GetComponent<LineController>().nodes[0] == _lineList[i + 1].GetComponent<LineController>().nodes[0]) || (_lineList[i].GetComponent<LineController>().nodes[0] == _lineList[i + 1].GetComponent<LineController>().nodes[1]) || (_lineList[i].GetComponent<LineController>().nodes[1] == _lineList[i + 1].[0]) || (_lineList[i].GetComponent<LineController>().nodes[1] == _lineList[i + 1].GetComponent<LineController>().nodes[1]))
+   //             {
+   //                 if ((_lineList[i].GetComponent<LineController>().nodes[0] == _lineList[i - 1].GetComponent<LineController>().nodes[0]) || (_lineList[i].GetComponent<LineController>().nodes[0] == _lineList[i - 1].GetComponent<LineController>().nodes[1]) || (_lineList[i].GetComponent<LineController>().nodes[1] == _lineList[i - 1].GetComponent<LineController>().nodes[0]) || (_lineList[i].GetComponent<LineController>().nodes[1] == _lineList[i - 1].GetComponent<LineController>().nodes[1]))
+   //                     Debug.Log("Create Shape");
+   //             }
+   //         }
+   //         //if (point1 && point2 && point3) //if three lines share 2 points
+   //         //{
+   //         //    //create new sprite shape
+   //         //    //add to list
+   //         //    //set points
+   //         //}
+   //     }
+   // }
 
     private void OnTriggerStay2D(Collider2D collision)
     {

@@ -8,7 +8,8 @@ public class NodeObject : SelectableNode
     public int XInt { get; private set; }
     public int YInt { get; private set; }
     public List<NodeObject> Neighbors { get; private set; }
-    
+    [SerializeField] public PlayerObject _player = null;
+
     private GridGenerator GridGenerator;
 
     private void Start()
