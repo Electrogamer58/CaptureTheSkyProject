@@ -18,7 +18,6 @@ public class NodeMovement : MonoBehaviour
     private float _originalMovementSpeed;
     private float _increasedMovementSpeed;
     private float _decreasedMovementSpeed;
-    // [SerializeField] float _homeTurfSpeedBonus = 0.5f;
 
     [Header("Visual Settings")]
     [SerializeField] private TrailRenderer _playerTrail;
@@ -32,7 +31,6 @@ public class NodeMovement : MonoBehaviour
     public NodeObject CurrentNode { get; private set; }
     public bool Moving { get; private set; } = false;
     [SerializeField] public bool inMyLine = false;
-    // public bool InHomeTurf = false;
 
     InputActionMap _playerActions;
     NodeObject _target = null;
