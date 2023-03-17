@@ -64,6 +64,7 @@ public class GridGenerator : MonoBehaviour
 
         //create gameobject points
         _nodeObjectsDictionary = GenerateNodeGameObjects(_nodes);
+        GetComponent<SquareToCircle>().CircularizeGrid();
 
         //pairs of points
         _nodePairs = GetNodePairs(_nodes);

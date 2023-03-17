@@ -48,31 +48,14 @@ public class FlagSpawner : MonoBehaviour
 
     void GetAllTris()
     {
+        RemoveAllFlags();
+        _trisInScene.Clear();
+        _trisInScene.TrimExcess();
         _needsTris = true;
     }
 
     public void SpawnFlag()
     {
-        // NodeObject first = _nodesInScene[Random.Range(0, _nodesInScene.Count)];
-        // NodeObject second = first.Neighbors[Random.Range(0, first.Neighbors.Count)];
-
-        // List<NodeObject> sharedNeighbors = new List<NodeObject>();
-        // foreach (NodeObject node in first.Neighbors)
-        // {
-        //     if (second.Neighbors.Contains(node))
-        //     {
-        //         sharedNeighbors.Add(node);
-        //     }
-        // }
-
-        // NodeObject third = sharedNeighbors[Random.Range(0, sharedNeighbors.Count)];
-        // Vector3 circumcenter = TriangleMath.Circumcenter(first.transform.position, second.transform.position, third.transform.position);
-
-        // Flag spawned = Instantiate(_flagPrefab, circumcenter, Quaternion.identity);
-        // spawned.SetNodes(first, second, third);
-        // _flagsInScene.Add(spawned);
-        // _spawnTimer = 0;
-
         TriangleObject triangleObj = _trisInScene[Random.Range(0, _trisInScene.Count)];
         
         Flag spawned = Instantiate(_flagPrefab, triangleObj.Tri.Circumcenter, Quaternion.identity);
@@ -84,5 +67,16 @@ public class FlagSpawner : MonoBehaviour
     void RemoveFlag(Flag flagToRemove)
     {
         _flagsInScene.Remove(flagToRemove);
+    }
+
+    void RemoveAllFlags()
+    {
+        foreach (Flag flag in _flagsInScene)
+        {
+            Destroy(flag.gameObject);
+        }
+
+        _flagsInScene.Clear();
+        _flagsInScene.TrimExcess();
     }
 }
