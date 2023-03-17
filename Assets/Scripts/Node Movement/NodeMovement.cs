@@ -83,7 +83,7 @@ public class NodeMovement : MonoBehaviour
                 Moving = false;
                 _targetSprite.enabled = true;
                 CurrentNode._player = _myPlayerObject;
-                RenderShape();
+                //RenderShape();
                 //_lineRenderer.gameObject.SetActive(false);
                 if (_playerParticles != null)
                     MakeParticles(_playerParticles, true);
