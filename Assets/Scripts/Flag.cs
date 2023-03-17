@@ -6,28 +6,45 @@ using Random = UnityEngine.Random;
 
 public class Flag : MonoBehaviour
 {
+    // Change PlayerHasControl to work with new triangle class
+    
     [SerializeField] float _pointValue = 10f;
+    [SerializeField] float _captureSpeed = 0.25f;
 
     List<NodeObject> _points = new List<NodeObject>();
+    TriangleObject _currentTri = null;
+    PlayerObject _controller = null;
     float _currentCaptureProgress = 0;
-    string _team = null;
 
     public static event Action<Flag> FlagCollected;
+
+    void Update()
+    {
+        if (_controller != null)
+        {
+            ProgressCapture(_captureSpeed * Time.deltaTime, _controller);
+        }
+        else if (_currentTri.Owner != null)
+        {
+            ProgressCapture(_captureSpeed * Time.deltaTime, _currentTri.Owner);
+        }
+    }
 
     public void Collect(PlayerScore player)
     {
         player.GivePoints(_pointValue);
         FlagCollected?.Invoke(this);
+        Destroy(gameObject);
     }
 
-    public void ProgressCapture(float amount, PlayerScore player)
+    public void ProgressCapture(float amount, PlayerObject player)
     {
-        if (player.Team != _team)
+        if (player != _currentTri.Owner)
         {
             _currentCaptureProgress = Mathf.Clamp(_currentCaptureProgress - amount, 0f, 1f);
             if (_currentCaptureProgress == 0)
             {
-                _team = player.Team;
+                _currentTri.Owner = player;
             }
         }
         else
@@ -35,33 +52,14 @@ public class Flag : MonoBehaviour
             _currentCaptureProgress = Mathf.Clamp(_currentCaptureProgress + amount, 0f, 1f);
             if (_currentCaptureProgress == 1)
             {
-                Collect(player);
+                Collect(player.Score);
             }
         }
     }
 
-    public void SetNodes(NodeObject point1, NodeObject point2, NodeObject point3)
+    public void SetTri(TriangleObject triangleObj)
     {
-        _points.Add(point1); _points.Add(point2); _points.Add(point3);
-    }
-
-    public bool PlayerHasControl(List<LineRenderer> playerEdges)
-    {
-        return PlayerHasEdge(playerEdges, _points[0], _points[1]) && PlayerHasEdge(playerEdges, _points[0], _points[2]) && PlayerHasEdge(playerEdges, _points[1], _points[2]);
-    }
-
-    bool PlayerHasEdge(List<LineRenderer> playerEdges, NodeObject point1, NodeObject point2)
-    {
-        foreach (LineRenderer edge in playerEdges)
-        {
-            Vector3[] pointArray = new Vector3[edge.positionCount];
-            edge.GetPositions(pointArray);
-            List<Vector3> points = new List<Vector3>(pointArray);
-            if (points.Contains(point1.transform.position) && points.Contains(point2.transform.position))
-            {
-                return true;
-            }
-        }
-        return false;
+        _currentTri = triangleObj;
+        _points.Add(_currentTri.Tri.Points[0]); _points.Add(_currentTri.Tri.Points[1]); _points.Add(_currentTri.Tri.Points[2]);
     }
 }

@@ -13,6 +13,7 @@ public class PlayerScore : MonoBehaviour
     public void GivePoints(float amount)
     {
         _score += amount;
+        Debug.Log(gameObject.name + " Scored: " + amount + "\t Total: " + _score);
         OnScorePoints?.Invoke(amount);
     }
 }

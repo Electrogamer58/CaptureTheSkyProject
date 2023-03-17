@@ -5014,6 +5014,8 @@ GameObject:
   - component: {fileID: 3985487005350020784}
   - component: {fileID: 3985487005350020791}
   - component: {fileID: 4252050045785350618}
+  - component: {fileID: 4266071799055838078}
+  - component: {fileID: 8938625537829897956}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Untagged
@@ -5138,11 +5140,13 @@ MonoBehaviour:
   _axis: {x: 0, y: 0, z: -1}
   myTeam: Player 1
   _movementSpeed: 2
+  _movementSpeedMultiplier: 2
   _playerTrail: {fileID: 1854024938}
   _playerParticles: {fileID: 1046782644}
   _lineRenderer: {fileID: 4891835756500317126, guid: 7a7711ee3ce8fa9429376bed52e2c8a8, type: 3}
   _lineList: []
   lineListParent: {fileID: 0}
+  inMyLine: 0
 --- !u!58 &4252050045785350618
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5159,6 +5163,33 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &4266071799055838078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3985487005350020790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e494c111feef75a4c832bffb5f12aa2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8938625537829897956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3985487005350020790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07be29442e82b470ca1ce2301ada0d04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnScorePoints:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3985487005388193391
 GameObject:
   m_ObjectHideFlags: 0

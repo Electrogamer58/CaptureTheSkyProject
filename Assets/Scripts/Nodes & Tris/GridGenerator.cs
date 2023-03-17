@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 public class GridGenerator : MonoBehaviour
 {
     public static event Action GridGenerated;
+    public static event Action TrianglesConstructed;
     
     public static float TRIWIDTH = 1.0f;
     public static float TRIOFFSET = TRIWIDTH * 0.5F;
@@ -77,6 +78,7 @@ public class GridGenerator : MonoBehaviour
         //cam.fieldOfView = 6 * gridDimensions * TRIWIDTH;
 
         GridGenerated?.Invoke();
+        TrianglesConstructed?.Invoke();
     }
     private Node[] GenerateNodes(float offset, int width, int height)
     {

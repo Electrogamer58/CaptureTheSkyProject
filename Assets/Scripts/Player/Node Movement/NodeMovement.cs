@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.U2D;
+using Random = UnityEngine.Random;
 
 public class NodeMovement : MonoBehaviour
 {
@@ -25,23 +27,26 @@ public class NodeMovement : MonoBehaviour
     [SerializeField] private LineRenderer _lineRenderer = null;
     [SerializeField] private List<LineRenderer> _lineList = null;
     [SerializeField] private GameObject lineListParent;
-    [SerializeField] private SpriteShapeController _spriteShape = null;
-    [SerializeField] private List<SpriteShapeController> _shapeList = null;
+    // [SerializeField] private SpriteShapeController _spriteShape = null;
+    // [SerializeField] private List<SpriteShapeController> _shapeList = null;
 
+    [SerializeField] public bool inMyLine = false;
     public NodeObject CurrentNode { get; private set; }
     public bool Moving { get; private set; } = false;
-    [SerializeField] public bool inMyLine = false;
     private PlayerObject _myPlayerObject = null;
-    // public bool InHomeTurf = false;
 
+    List<NodePair> _edges = new List<NodePair>();
     InputActionMap _playerActions;
     NodeObject _target = null;
     NodeObject _lastNode = null;
     float _currentMovementSpeed = 0;
 
+    public static event Action<PlayerObject, NodeObject, NodeObject> CaptureEdge;
+
     void OnEnable()
     {
         GridGenerator.GridGenerated += OnGridGenerate;
+        CaptureEdge += OnEdgeCaptured;
         
         _playerActions = GetComponent<PlayerInput>().currentActionMap;
         
@@ -56,6 +61,7 @@ public class NodeMovement : MonoBehaviour
     void OnDisable()
     {
         GridGenerator.GridGenerated -= OnGridGenerate;
+        CaptureEdge -= OnEdgeCaptured;
         
         _playerActions["Previous"].performed -= TargetPreviousNode;
         _playerActions["Next"].performed -= TargetNextNode;
@@ -86,8 +92,19 @@ public class NodeMovement : MonoBehaviour
                 //RenderShape();
                 //_lineRenderer.gameObject.SetActive(false);
                 if (_playerParticles != null)
+                {
                     MakeParticles(_playerParticles, true);
+                }
+
+                CaptureEdge?.Invoke(_myPlayerObject, _lastNode, CurrentNode);
                 
+                foreach (TriangleObject triangleObj in CurrentNode.TriangleObjs)
+                {
+                    if (triangleObj.Tri.Points.Contains(_lastNode) && triangleObj.Tri.Points.Contains(CurrentNode))
+                    {
+                        triangleObj.CheckPlayerControl(_myPlayerObject, _edges);
+                    }
+                }
             }
         }
         //if (_movingTo)
@@ -111,6 +128,20 @@ public class NodeMovement : MonoBehaviour
         transform.position = startingNode.transform.position;
         _target = CurrentNode.Neighbors[0];
         _targetSprite.transform.position = _target.transform.position;
+    }
+
+    void OnEdgeCaptured(PlayerObject player, NodeObject node1, NodeObject node2)
+    {
+        NodePair edge = new NodePair(node1, node2);
+        
+        if (_myPlayerObject == player && !_edges.Contains(edge))
+        {
+            _edges.Add(edge);
+        }
+        else if (_edges.Contains(edge))
+        {
+            _edges.Remove(edge);
+        }
     }
 
     void TargetNextNode(InputAction.CallbackContext value)

@@ -23,4 +23,9 @@ public class TriangleMath
     {
         return new Vector3((point1.x + point2.x + point3.x) / 3, (point1.y + point2.y + point3.y) / 3, (point1.z + point2.z + point3.z) / 3);
     }
+
+    public static Vector3 Circumcenter(Vector2 point1, Vector2 point2, Vector2 point3)
+    {
+        return new Vector2((point1.x + point2.x + point3.x) / 3, (point1.y + point2.y + point3.y) / 3);
+    }
 }
