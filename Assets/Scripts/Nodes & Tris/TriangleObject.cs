@@ -5,12 +5,22 @@ using UnityEngine;
 
 public class TriangleObject : MonoBehaviour, IEquatable<TriangleObject>
 {
+    [SerializeField] float _scorePerSquareUnit = 2.5f;
+
     public Triangle Tri { get; private set; }
     public PlayerObject Owner = null;
     
     public bool Equals(TriangleObject other)
     {
         return Tri.Equals(other.Tri);
+    }
+
+    void Update()
+    {
+        if (Owner != null)
+        {
+            Owner.Score.GivePoints(Tri.Area * _scorePerSquareUnit * Time.deltaTime);
+        }
     }
 
     public void Initialize(NodeObject point1, NodeObject point2, NodeObject point3)
