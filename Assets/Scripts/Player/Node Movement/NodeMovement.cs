@@ -119,6 +119,13 @@ public class NodeMovement : MonoBehaviour
         transform.position = CurrentNode.transform.position;
         _target = CurrentNode.Neighbors[0];
         _targetSprite.transform.position = _target.transform.position;
+
+        foreach (LineRenderer line in _lineList)
+        {
+            Destroy(line.gameObject);
+        }
+        _lineList.Clear();
+        _lineList.TrimExcess();
     }
 
     void OnEdgeCaptured(PlayerObject player, NodeObject node1, NodeObject node2)
