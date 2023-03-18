@@ -113,19 +113,10 @@ public class NodeMovement : MonoBehaviour
     
     void OnGridGenerate()
     {
-        List<NodeObject> allNodes = new List<NodeObject>(FindObjectsOfType<NodeObject>());
-        NodeObject startingNode = null;
-        
-        foreach (NodeObject nodeObject in allNodes)
-        {
-            if (new Vector2(nodeObject.Node.Xcoord, nodeObject.Node.Ycoord) == _startingNodeCoordinates)
-            {
-                startingNode = nodeObject;
-            }
-        }
-        
+        GridGenerator grid = FindObjectOfType<GridGenerator>();
+        NodeObject startingNode = grid._nodeObjectsDictionary[_startingNodeCoordinates];
         CurrentNode = startingNode;
-        transform.position = startingNode.transform.position;
+        transform.position = CurrentNode.transform.position;
         _target = CurrentNode.Neighbors[0];
         _targetSprite.transform.position = _target.transform.position;
     }
