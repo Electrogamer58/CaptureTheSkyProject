@@ -82,6 +82,7 @@ public class NodeMovement : MonoBehaviour
         if (Moving && transform.position != CurrentNode.transform.position)
         {
             transform.position = Vector3.MoveTowards(transform.position, CurrentNode.transform.position, _movementSpeed * Time.deltaTime);
+            _targetSprite.transform.position = _target.transform.position;
             if (transform.position == CurrentNode.transform.position)
             {
                 RenderLine(_lastNode.transform, CurrentNode.transform);
@@ -237,9 +238,27 @@ public class NodeMovement : MonoBehaviour
             _targetSprite.enabled = false;
     
             _lastNode = temp;
-            _target = _lastNode;
+            _target = GetNextNode();
             _targetSprite.transform.position = _target.transform.position;
         }
+    }
+
+    NodeObject GetNextNode()
+    {
+        Vector3 dir = CurrentNode.transform.position - _lastNode.transform.position;
+        NodeObject next = null;
+        float angleToNext = 180f;
+
+        foreach (NodeObject node in CurrentNode.Neighbors)
+        {
+            if (next == null || Vector3.Angle(dir, next.transform.position - CurrentNode.transform.position) < angleToNext)
+            {
+                next = node;
+                angleToNext = Vector3.Angle(dir, next.transform.position - CurrentNode.transform.position);
+            }
+        }
+
+        return next;
     }
 
     private void RenderLine(Transform startPoint, Transform targetPoint)
