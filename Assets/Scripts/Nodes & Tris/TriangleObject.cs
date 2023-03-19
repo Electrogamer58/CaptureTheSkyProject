@@ -19,6 +19,16 @@ public class TriangleObject : MonoBehaviour, IEquatable<TriangleObject>
         return Tri.Equals(other.Tri);
     }
 
+    void OnEnable()
+    {
+        NodeMovement.CaptureEdge += OnEdgeCaptured;
+    }
+
+    void OnDisable()
+    {
+        NodeMovement.CaptureEdge -= OnEdgeCaptured;
+    }
+    
     private void Awake()
     {
         spriteShapeController = GetComponent<SpriteShapeController>();
@@ -73,8 +83,19 @@ public class TriangleObject : MonoBehaviour, IEquatable<TriangleObject>
         }
     }
 
-    public bool CheckPlayerControl(PlayerObject player, List<NodePair> playerEdges)
+    void OnEdgeCaptured(PlayerObject player, NodePair edge)
     {
+        if ((Tri.Points[0].Node == edge.First || Tri.Points[1].Node == edge.First || Tri.Points[2].Node == edge.First) &&
+            (Tri.Points[0].Node == edge.Second || Tri.Points[1].Node == edge.Second || Tri.Points[2].Node == edge.Second))
+        {
+            CheckPlayerControl(player);
+        }
+    }
+
+    public bool CheckPlayerControl(PlayerObject player)
+    {
+        List<NodePair> playerEdges = player.Movement.Edges;
+        
         bool hasAB = PlayerHasEdge(playerEdges, Tri.Points[0], Tri.Points[1]);
         bool hasAC = PlayerHasEdge(playerEdges, Tri.Points[0], Tri.Points[2]);
         bool hasBC = PlayerHasEdge(playerEdges, Tri.Points[1], Tri.Points[2]);
@@ -82,13 +103,11 @@ public class TriangleObject : MonoBehaviour, IEquatable<TriangleObject>
         if (hasAB && hasAC && hasBC)
         {
             Owner = player;
+            Debug.Log(Owner.gameObject.name);
         }
-        else
+        else if (Owner != player && Owner != null && (hasAB || hasAC || hasBC))
         {
-            if (Owner != null && (hasAB || hasAC || hasBC))
-            {
-                Owner = null;
-            }
+            Owner = null;
         }
 
         return Owner == player;

@@ -27,7 +27,6 @@ public class NodeMovement : MonoBehaviour
     [SerializeField] private LineRenderer _lineRenderer = null;
     [SerializeField] private List<LineRenderer> _lineList = null;
     [SerializeField] private GameObject lineListParent;
-    //[SerializeField] private SpriteShapeController _spriteShape = null;
     [SerializeField] private List<SpriteShapeController> _shapeList = null;
 
     [SerializeField] public bool inMyLine = false;
@@ -35,13 +34,13 @@ public class NodeMovement : MonoBehaviour
     public bool Moving { get; private set; } = false;
     private PlayerObject _myPlayerObject = null;
 
-    List<NodePair> _edges = new List<NodePair>();
+    public List<NodePair> Edges { get; private set; } = new List<NodePair>();
     InputActionMap _playerActions;
     NodeObject _target = null;
     NodeObject _lastNode = null;
     float _currentMovementSpeed = 0;
 
-    public static event Action<PlayerObject, NodeObject, NodeObject> CaptureEdge;
+    public static event Action<PlayerObject, NodePair> CaptureEdge;
 
     void OnEnable()
     {
@@ -92,26 +91,19 @@ public class NodeMovement : MonoBehaviour
                 Moving = false;
                 _targetSprite.enabled = true;
                 CurrentNode._player = _myPlayerObject;
-                //RenderShape();
-                //_lineRenderer.gameObject.SetActive(false);
                 if (_playerParticles != null)
                 {
                     MakeParticles(_playerParticles, true);
                 }
 
-                CaptureEdge?.Invoke(_myPlayerObject, _lastNode, CurrentNode);
-                
-                foreach (TriangleObject triangleObj in CurrentNode.TriangleObjs)
+                NodePair edge = new NodePair(_lastNode, CurrentNode);
+                if (!Edges.Contains(edge))
                 {
-                    if (triangleObj.Tri.Points.Contains(_lastNode) && triangleObj.Tri.Points.Contains(CurrentNode))
-                    {
-                        triangleObj.CheckPlayerControl(_myPlayerObject, _edges);
-                    }
+                    Edges.Add(edge);
+                    CaptureEdge?.Invoke(_myPlayerObject, edge);
                 }
             }
         }
-        //if (_movingTo)
-        //RenderLine(CurrentNode, _movingTo);
     }
     
     void OnGridGenerate()
@@ -131,17 +123,11 @@ public class NodeMovement : MonoBehaviour
         _lineList.TrimExcess();
     }
 
-    void OnEdgeCaptured(PlayerObject player, NodeObject node1, NodeObject node2)
+    void OnEdgeCaptured(PlayerObject player, NodePair edge)
     {
-        NodePair edge = new NodePair(node1, node2);
-        
-        if (_myPlayerObject == player && !_edges.Contains(edge))
+        if (_myPlayerObject != player)
         {
-            _edges.Add(edge);
-        }
-        else if (_edges.Contains(edge))
-        {
-            _edges.Remove(edge);
+            Edges.Remove(edge);
         }
     }
 
@@ -280,19 +266,16 @@ public class NodeMovement : MonoBehaviour
                         return;
                     }
                 }
-            } else if (renderer.gameObject.activeSelf == false)
+            }
+            else if (renderer.gameObject.activeSelf == false)
             {
                 var controller = renderer.GetComponent<LineController>();
                 _lineList.Remove(renderer);
-                //foreach (SpriteShapeController controller in _shapeList)
-                //{
-                //    controller.GetComponent<TriangleObject>().CheckPlayerControl(_myPlayerObject, );
-                //}
                 NodePair edge = new NodePair(controller.nodes[0], controller.nodes[1]);
-                _edges.Remove(edge);
+                Edges.Remove(edge);
                 foreach (TriangleObject triangleObj in CurrentNode.TriangleObjs)
                 {
-                   triangleObj.CheckPlayerControl(_myPlayerObject, _edges);
+                   triangleObj.CheckPlayerControl(_myPlayerObject);
                 }
 
                 Destroy(renderer.gameObject);
