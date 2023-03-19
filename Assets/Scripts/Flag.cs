@@ -6,28 +6,84 @@ using Random = UnityEngine.Random;
 
 public class Flag : MonoBehaviour
 {
-    [SerializeField] float _pointValue = 10f;
+    // Change PlayerHasControl to work with new triangle class
+    
+    [SerializeField] public float _pointValue = 10f;
+    [SerializeField] float _captureSpeed = 0.25f;
+
+    [Header("Feedback")]
+    [SerializeField] public ParticleSystem _myParticleSystem;
+    [SerializeField] public ParticleSystem _enterParticleSystem;
+    [SerializeField] public AudioSource _myAudioSource;
+
+    [SerializeField] public Transform _player1Side;
+    [SerializeField] public Transform _player2Side;
 
     List<NodeObject> _points = new List<NodeObject>();
+    [SerializeField] private List<GameObject> _planets;
+    TriangleObject _currentTri = null;
+    PlayerObject _controller = null;
     float _currentCaptureProgress = 0;
-    string _team = null;
+
 
     public static event Action<Flag> FlagCollected;
+
+    private void Awake()
+    {
+        int i = Mathf.FloorToInt(Random.Range(0, 3));
+        _planets[i].SetActive(true);
+        _myParticleSystem = _planets[i].transform.Find("Charging").GetComponent<ParticleSystem>();
+        _enterParticleSystem = _planets[i].transform.Find("Enter").GetComponent<ParticleSystem>();
+
+        _player1Side = GameObject.FindGameObjectWithTag("PlanetsLeftSide").GetComponent<Transform>() ;
+        _player2Side = GameObject.FindGameObjectWithTag("PlanetsRightSide").GetComponent<Transform>();
+
+    }
+    void Update()
+    {
+        if (_controller != null)
+        {
+            ProgressCapture(_captureSpeed * Time.deltaTime, _controller);
+        }
+        else if (_currentTri.Owner != null)
+        {
+            ProgressCapture(_captureSpeed * Time.deltaTime, _currentTri.Owner);
+        }
+    }
 
     public void Collect(PlayerScore player)
     {
         player.GivePoints(_pointValue);
         FlagCollected?.Invoke(this);
+        //_enterParticleSystem.Play();
+
+        if (player.Team == "Player 1")
+        {
+            transform.position = _player1Side.position;
+            gameObject.transform.parent = _player1Side;
+            gameObject.GetComponent<Rigidbody2D>().WakeUp();
+            //gameObject.layer = 5;
+        }
+        if (player.Team == "Player 2")
+        {
+            transform.position = _player2Side.position;
+            gameObject.transform.parent = _player2Side;
+            gameObject.GetComponent<Rigidbody2D>().WakeUp();
+        }
+
+        //gameObject.layer = 5;
+        
+        //Destroy(gameObject);
     }
 
-    public void ProgressCapture(float amount, PlayerScore player)
+    public void ProgressCapture(float amount, PlayerObject player)
     {
-        if (player.Team != _team)
+        if (player != _currentTri.Owner)
         {
             _currentCaptureProgress = Mathf.Clamp(_currentCaptureProgress - amount, 0f, 1f);
             if (_currentCaptureProgress == 0)
             {
-                _team = player.Team;
+                _currentTri.Owner = player;
             }
         }
         else
@@ -35,33 +91,18 @@ public class Flag : MonoBehaviour
             _currentCaptureProgress = Mathf.Clamp(_currentCaptureProgress + amount, 0f, 1f);
             if (_currentCaptureProgress == 1)
             {
-                Collect(player);
+                Collect(player.Score);
             }
         }
-    }
-
-    public void SetNodes(NodeObject point1, NodeObject point2, NodeObject point3)
-    {
-        _points.Add(point1); _points.Add(point2); _points.Add(point3);
-    }
-
-    public bool PlayerHasControl(List<LineRenderer> playerEdges)
-    {
-        return PlayerHasEdge(playerEdges, _points[0], _points[1]) && PlayerHasEdge(playerEdges, _points[0], _points[2]) && PlayerHasEdge(playerEdges, _points[1], _points[2]);
-    }
-
-    bool PlayerHasEdge(List<LineRenderer> playerEdges, NodeObject point1, NodeObject point2)
-    {
-        foreach (LineRenderer edge in playerEdges)
+        if (_currentCaptureProgress < 1)
         {
-            Vector3[] pointArray = new Vector3[edge.positionCount];
-            edge.GetPositions(pointArray);
-            List<Vector3> points = new List<Vector3>(pointArray);
-            if (points.Contains(point1.transform.position) && points.Contains(point2.transform.position))
-            {
-                return true;
-            }
+            _myParticleSystem.Play();
         }
-        return false;
+    }
+
+    public void SetTri(TriangleObject triangleObj)
+    {
+        _currentTri = triangleObj;
+        _points.Add(_currentTri.Tri.Points[0]); _points.Add(_currentTri.Tri.Points[1]); _points.Add(_currentTri.Tri.Points[2]);
     }
 }
