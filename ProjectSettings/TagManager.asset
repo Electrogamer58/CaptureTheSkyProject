@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Secondary Camera
+  - PlanetsLeftSide
+  - PlanetsRightSide
   layers:
   - Default
   - TransparentFX

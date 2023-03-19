@@ -62,6 +62,7 @@ public class FlagSpawner : MonoBehaviour
         spawned.SetTri(triangleObj);
         _flagsInScene.Add(spawned);
         _spawnTimer = 0;
+        spawned._enterParticleSystem.Play();
     }
 
     void RemoveFlag(Flag flagToRemove)

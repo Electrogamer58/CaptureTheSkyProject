@@ -116,7 +116,7 @@ public class TimerCountdown : MonoBehaviour
             _winnerText.text = "Sun Wins!";
         } else if (_tempScore < _tempScore2)
         {
-            _winnerText.text = "Sun Wins!";
+            _winnerText.text = "Moon Wins!";
         } else if (_tempScore == _tempScore2)
         {
             _winnerText.text = "DRAW";

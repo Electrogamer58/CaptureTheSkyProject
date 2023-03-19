@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class PlayerScore : MonoBehaviour
 {
-    [SerializeField] public string Team { get; private set; } = null;
+    [SerializeField] public string Team = null; //{ get; private set; }
     [SerializeField] UnityEvent<float> OnScorePoints;
     [SerializeField] public List<Flag> _flagList;
 

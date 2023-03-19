@@ -13,15 +13,32 @@ public class Flag : MonoBehaviour
 
     [Header("Feedback")]
     [SerializeField] public ParticleSystem _myParticleSystem;
-    //[SerializeField] public AudioSource _myAudioSource;
+    [SerializeField] public ParticleSystem _enterParticleSystem;
+    [SerializeField] public AudioSource _myAudioSource;
+
+    [SerializeField] public Transform _player1Side;
+    [SerializeField] public Transform _player2Side;
 
     List<NodeObject> _points = new List<NodeObject>();
+    [SerializeField] private List<GameObject> _planets;
     TriangleObject _currentTri = null;
     PlayerObject _controller = null;
     float _currentCaptureProgress = 0;
 
+
     public static event Action<Flag> FlagCollected;
 
+    private void Awake()
+    {
+        int i = Mathf.FloorToInt(Random.Range(0, 3));
+        _planets[i].SetActive(true);
+        _myParticleSystem = _planets[i].transform.Find("Charging").GetComponent<ParticleSystem>();
+        _enterParticleSystem = _planets[i].transform.Find("Enter").GetComponent<ParticleSystem>();
+
+        _player1Side = GameObject.FindGameObjectWithTag("PlanetsLeftSide").GetComponent<Transform>() ;
+        _player2Side = GameObject.FindGameObjectWithTag("PlanetsRightSide").GetComponent<Transform>();
+
+    }
     void Update()
     {
         if (_controller != null)
@@ -38,7 +55,25 @@ public class Flag : MonoBehaviour
     {
         player.GivePoints(_pointValue);
         FlagCollected?.Invoke(this);
-        Destroy(gameObject);
+        //_enterParticleSystem.Play();
+
+        if (player.Team == "Player 1")
+        {
+            transform.position = _player1Side.position;
+            gameObject.transform.parent = _player1Side;
+            gameObject.GetComponent<Rigidbody2D>().WakeUp();
+            //gameObject.layer = 5;
+        }
+        if (player.Team == "Player 2")
+        {
+            transform.position = _player2Side.position;
+            gameObject.transform.parent = _player2Side;
+            gameObject.GetComponent<Rigidbody2D>().WakeUp();
+        }
+
+        //gameObject.layer = 5;
+        
+        //Destroy(gameObject);
     }
 
     public void ProgressCapture(float amount, PlayerObject player)
@@ -58,6 +93,10 @@ public class Flag : MonoBehaviour
             {
                 Collect(player.Score);
             }
+        }
+        if (_currentCaptureProgress < 1)
+        {
+            _myParticleSystem.Play();
         }
     }
 
