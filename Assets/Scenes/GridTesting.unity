@@ -603,7 +603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontal: 4
   vertical: 3
-  finalRadius: 3.3
+  finalRadius: 3
   center: {x: 2.8, y: 2.2, z: 0}
 --- !u!1 &353133013
 GameObject:

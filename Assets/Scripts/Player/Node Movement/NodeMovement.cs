@@ -248,10 +248,10 @@ public class NodeMovement : MonoBehaviour
 
         foreach (NodeObject node in CurrentNode.Neighbors)
         {
-            if (next == null || Vector3.Angle(dir, next.transform.position - CurrentNode.transform.position) < angleToNext)
+            if (next == null || Vector3.Angle(dir, node.transform.position - CurrentNode.transform.position) < angleToNext)
             {
                 next = node;
-                angleToNext = Vector3.Angle(dir, next.transform.position - CurrentNode.transform.position);
+                angleToNext = Vector3.Angle(dir, node.transform.position - CurrentNode.transform.position);
             }
         }
 
