@@ -41,7 +41,7 @@ public class GridGenerator : MonoBehaviour
 
         if (generateOnStartup)
         {
-            GenerateLineWithGrids();
+            GenerateGridWithLines();
         }
     }
     public void ClearGrid()
