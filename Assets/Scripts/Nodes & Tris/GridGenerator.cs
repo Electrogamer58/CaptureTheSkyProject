@@ -22,6 +22,8 @@ public class GridGenerator : MonoBehaviour
     [SerializeField] private bool drawCenterPoint;
     [SerializeField] private float gridRadius = 4f;
 
+    [SerializeField] bool generateOnStartup = false;
+
     Node[] _nodes;
     public Dictionary<Vector2, NodeObject> _nodeObjectsDictionary { get; private set; }
     public NodeObject _selectedNode { get; set; }
@@ -36,6 +38,11 @@ public class GridGenerator : MonoBehaviour
     {
         ClearGrid();
         transform.position = new Vector3(0.45f, 0, 0);
+
+        if (generateOnStartup)
+        {
+            GenerateLineWithGrids();
+        }
     }
     public void ClearGrid()
     {
