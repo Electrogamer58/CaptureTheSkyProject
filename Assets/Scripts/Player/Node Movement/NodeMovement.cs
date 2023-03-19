@@ -29,6 +29,12 @@ public class NodeMovement : MonoBehaviour
     [SerializeField] private GameObject lineListParent;
     [SerializeField] private List<SpriteShapeController> _shapeList = null;
 
+    [Header("Sound Settings")]
+    [SerializeField] public AudioSource _myAudioSource;
+    [SerializeField] public AudioClip _nodeMovementClip;
+    [SerializeField] public AudioClip _triangleCreationClip;
+    [SerializeField] public AudioClip _flyingClip;
+
     [SerializeField] public bool inMyLine = false;
     public NodeObject CurrentNode { get; private set; }
     public bool Moving { get; private set; } = false;
@@ -95,6 +101,8 @@ public class NodeMovement : MonoBehaviour
                 {
                     MakeParticles(_playerParticles, true);
                 }
+                _myAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.2f);
+                _myAudioSource.PlayOneShot(_nodeMovementClip);
 
                 NodePair edge = new NodePair(_lastNode, CurrentNode);
                 if (!Edges.Contains(edge))
@@ -224,7 +232,8 @@ public class NodeMovement : MonoBehaviour
             if (_playerTrail)
                 _playerTrail.emitting = true;
             _targetSprite.enabled = false;
-    
+
+
             _lastNode = temp;
             _target = GetNextNode();
             _targetSprite.transform.position = _target.transform.position;

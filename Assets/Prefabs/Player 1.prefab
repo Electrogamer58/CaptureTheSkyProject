@@ -5158,6 +5158,10 @@ MonoBehaviour:
   _lineList: []
   lineListParent: {fileID: 0}
   _shapeList: []
+  _myAudioSource: {fileID: 8198579292868435424}
+  _nodeMovementClip: {fileID: 8300000, guid: c3480e340ddd02a409aef0d98dd26472, type: 3}
+  _triangleCreationClip: {fileID: 8300000, guid: 30a01550afcda514a8d8b736fd13a26b, type: 3}
+  _flyingClip: {fileID: 0}
   inMyLine: 0
 --- !u!58 &4252050045785350618
 CircleCollider2D:

@@ -13,6 +13,8 @@ public class TriangleObject : MonoBehaviour, IEquatable<TriangleObject>
     public PlayerObject Owner = null;
     public SpriteShapeController spriteShapeController;
     public SpriteShapeRenderer spriteShapeRenderer;
+
+    bool playedAudio = false;
     
     public bool Equals(TriangleObject other)
     {
@@ -56,6 +58,14 @@ public class TriangleObject : MonoBehaviour, IEquatable<TriangleObject>
 
             // Assign the new color to the SpriteRenderer
             GetComponent<SpriteShapeRenderer>().color = spriteColor;
+
+            if (!playedAudio)
+            {
+                var ownerMovement = Owner.GetComponent<NodeMovement>();
+                ownerMovement._myAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.2f);
+                ownerMovement._myAudioSource.PlayOneShot(ownerMovement._triangleCreationClip);
+                playedAudio = true;
+            }
 
         }
         if (Owner == null)

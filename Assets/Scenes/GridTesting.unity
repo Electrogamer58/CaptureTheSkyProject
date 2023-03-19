@@ -1487,6 +1487,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1030758651 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8198579292868435424, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
+  m_PrefabInstance: {fileID: 1504279858}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1037341199
 GameObject:
   m_ObjectHideFlags: 0
@@ -2574,9 +2579,21 @@ PrefabInstance:
       value: Player 1
       objectReference: {fileID: 0}
     - target: {fileID: 3985487005350020791, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
+      propertyPath: _myAudioSource
+      value: 
+      objectReference: {fileID: 1030758651}
+    - target: {fileID: 3985487005350020791, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
       propertyPath: lineListParent
       value: 
       objectReference: {fileID: 683506496}
+    - target: {fileID: 3985487005350020791, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
+      propertyPath: _nodeMovementClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c3480e340ddd02a409aef0d98dd26472, type: 3}
+    - target: {fileID: 3985487005350020791, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
+      propertyPath: _triangleCreationClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 30a01550afcda514a8d8b736fd13a26b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
 --- !u!1 &1555625479
@@ -3434,6 +3451,14 @@ PrefabInstance:
       propertyPath: lineListParent
       value: 
       objectReference: {fileID: 376203780}
+    - target: {fileID: 8582328919246954540, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
+      propertyPath: _nodeMovementClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c3480e340ddd02a409aef0d98dd26472, type: 3}
+    - target: {fileID: 8582328919246954540, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
+      propertyPath: _triangleCreationClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 30a01550afcda514a8d8b736fd13a26b, type: 3}
     - target: {fileID: 8582328919246954541, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
       propertyPath: m_Name
       value: Player 2

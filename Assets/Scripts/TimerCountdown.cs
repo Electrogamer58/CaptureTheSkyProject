@@ -13,6 +13,7 @@ public class TimerCountdown : MonoBehaviour
     [SerializeField] public PostProcessVolume _postProcessVolume;
     [SerializeField] public PlayerScore _player1;
     [SerializeField] public PlayerScore _player2;
+    [SerializeField] public AudioSource _tickingNoise;
     public bool _gameStart;
     public float _roundTime = 120f;
     private float val = 1;
@@ -68,17 +69,20 @@ public class TimerCountdown : MonoBehaviour
         if ((val <= 0.2f) && (val > 0))
         {
             _chromaticAberration.intensity.value += 0.0003f;
+            _tickingNoise.Play();//BUG: wont play??
         }
 
         if (val <= 0)
         {
             //time is up!
+            //_tickingNoise.Stop();
             StartCoroutine(EndGame());
         }
     }
 
     IEnumerator EndGame()
     {
+        //_tickingNoise.Stop();
         _chromaticAberration.intensity.value += 1;
         _lensDistortion.intensity.value -= 10;
 

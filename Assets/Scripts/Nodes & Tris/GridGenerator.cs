@@ -35,6 +35,7 @@ public class GridGenerator : MonoBehaviour
     private void Start()
     {
         ClearGrid();
+        transform.position = new Vector3(0.45f, 0, 0);
     }
     public void ClearGrid()
     {
