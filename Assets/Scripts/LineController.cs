@@ -12,14 +12,18 @@ public class LineController : MonoBehaviour
     [SerializeField] public List<NodeObject> nodes;
     [SerializeField] public List<Transform> nodeTransforms;
     [SerializeField] public string Team = null;
-    [SerializeField] public float Lifetime = 10f;
+    //[SerializeField] public float Lifetime = 10f;
+    [SerializeField] public PolygonCollider2D _pc;
     LineRenderer lr;
+
+    public NodeMovement _myParent;
 
     // Start is called before the first frame update
     void Start()
     {
         lr = GetComponent<LineRenderer>();
         lr.positionCount = nodeTransforms.Count;
+        _pc = GetComponent<PolygonCollider2D>();
     }
 
     // Update is called once per frame
@@ -27,11 +31,11 @@ public class LineController : MonoBehaviour
     {
         lr.SetPositions(nodeTransforms.ConvertAll(n => n.position - new Vector3(0, 0, 5)).ToArray());
 
-        Lifetime -= Time.deltaTime;
-        if (Lifetime <= 0)
-        {
-            gameObject.SetActive(false);
-        }
+        //Lifetime -= Time.deltaTime;
+        //if (Lifetime <= 0)
+        //{
+        //    gameObject.SetActive(false);
+        //}
 
     }
 
@@ -50,4 +54,21 @@ public class LineController : MonoBehaviour
         nodes.Add(node1);
         nodes.Add(node2);
     }
+
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    //if (collision.gameObject.GetComponent<LineController>().Team != null)
+    //    //{
+    //    if (collision.gameObject.GetComponent<LineController>()._myParent != _myParent)
+    //        {
+    //            Debug.Log("overlappingLines");
+    //            collision.gameObject.SetActive(false);
+    //        }
+    //    else
+    //    {
+    //        return;
+    //    }
+    //    //}
+    //    
+    //}
 }

@@ -11,8 +11,10 @@ public class TriangleObject : MonoBehaviour, IEquatable<TriangleObject>
 
     public Triangle Tri { get; private set; }
     public PlayerObject Owner = null;
+    private NodeMovement ownerMovement = null;
     public SpriteShapeController spriteShapeController;
     public SpriteShapeRenderer spriteShapeRenderer;
+    public LayerMask layerMask;
 
     bool playedAudio = false;
     
@@ -42,7 +44,7 @@ public class TriangleObject : MonoBehaviour, IEquatable<TriangleObject>
     {
         if (Owner != null)
         {
-
+            ownerMovement = Owner.GetComponent<NodeMovement>();
             Owner.Score.GivePoints(Tri.Area * _scorePerSquareUnit * Time.deltaTime);
 
             //enable sprite renderer component
@@ -61,11 +63,12 @@ public class TriangleObject : MonoBehaviour, IEquatable<TriangleObject>
 
             if (!playedAudio)
             {
-                var ownerMovement = Owner.GetComponent<NodeMovement>();
+                
                 ownerMovement._myAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.2f);
                 ownerMovement._myAudioSource.PlayOneShot(ownerMovement._triangleCreationClip);
                 playedAudio = true;
             }
+            
 
         }
         if (Owner == null)
@@ -99,6 +102,7 @@ public class TriangleObject : MonoBehaviour, IEquatable<TriangleObject>
             (Tri.Points[0].Node == edge.Second || Tri.Points[1].Node == edge.Second || Tri.Points[2].Node == edge.Second))
         {
             CheckPlayerControl(player);
+            FindEnemyEdges();
         }
     }
 
@@ -126,5 +130,44 @@ public class TriangleObject : MonoBehaviour, IEquatable<TriangleObject>
     bool PlayerHasEdge(List<NodePair> playerEdges, NodeObject point1, NodeObject point2)
     {
         return playerEdges.Contains(new NodePair(point1, point2));
+    }
+
+    GameObject FindClosestObjectOfType<T>(Vector3 position) where T : Component
+    {
+        T[] objectsOfType = FindObjectsOfType<T>();
+        GameObject closestObject = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (T obj in objectsOfType)
+        {
+            float distance = Vector3.Distance(obj.transform.position, position);
+            if (distance < closestDistance)
+            {
+                closestObject = obj.gameObject;
+                closestDistance = distance;
+            }
+        }
+
+        return closestObject;
+    }
+
+    private void FindEnemyEdges()
+    {
+        GameObject closestObject = FindClosestObjectOfType<TriangleObject>(transform.position);
+        if (closestObject.GetComponent<TriangleObject>().Owner != Owner && Owner != null)
+        {
+            closestObject.GetComponent<TriangleObject>().spriteShapeRenderer.enabled = false;
+            //GameObject closestLine = FindClosestObjectOfType<LineController>(transform.position); //THIS MIGHT BE TOO EXPENSIVE
+
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 10, layerMask);
+            foreach (Collider2D _collider in colliders)
+            {
+                LineController _lineController = _collider.GetComponent<LineController>();
+                if (_lineController && _lineController._myParent != ownerMovement && ownerMovement != null)
+                {
+                     _lineController.gameObject.SetActive(false);
+                }
+            }
+        }
     }
 }

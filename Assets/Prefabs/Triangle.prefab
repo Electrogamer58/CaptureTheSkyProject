@@ -51,6 +51,9 @@ MonoBehaviour:
   Owner: {fileID: 0}
   spriteShapeController: {fileID: 0}
   spriteShapeRenderer: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1971053207 &-7329614685094317063
 SpriteShapeRenderer:
   m_ObjectHideFlags: 0

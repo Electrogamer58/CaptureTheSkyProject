@@ -148,8 +148,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodes: []
+  nodeTransforms: []
   Team: 
-  Lifetime: 10
+  _pc: {fileID: 8681802313219328276}
 --- !u!60 &8681802313219328276
 PolygonCollider2D:
   m_ObjectHideFlags: 0
