@@ -573,6 +573,7 @@ MonoBehaviour:
   drawLines: 1
   drawCenterPoint: 0
   gridRadius: 0
+  generateOnStartup: 0
 --- !u!4 &351723924
 Transform:
   m_ObjectHideFlags: 0
@@ -1016,7 +1017,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &755778552
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2784,17 +2785,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 683506496}
     - target: {fileID: 8198579292868435424, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
+      propertyPath: Pan2D
+      value: -0.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 8198579292868435424, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
       propertyPath: Priority
       value: 167
       objectReference: {fileID: 0}
     - target: {fileID: 8198579292868435424, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
       propertyPath: m_Volume
-      value: 0.576
+      value: 0.291
       objectReference: {fileID: 0}
     - target: {fileID: 8198579292868435424, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: -7511503698707101440, guid: c68d2d09ffd68eb43bb26a9cc745887a, type: 2}
+    - target: {fileID: 8198579292868435424, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0.199
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
 --- !u!1 &1555625479
@@ -2935,7 +2944,7 @@ MonoBehaviour:
   _player2: {fileID: 0}
   _tickingNoise: {fileID: 1559191659}
   _gameStart: 1
-  _roundTime: 20
+  _roundTime: 120
   _gameOverUI: {fileID: 1142090254}
   _endText: {fileID: 1147853235}
   _score1: {fileID: 1182461120}
@@ -3745,17 +3754,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 718573410}
     m_Modifications:
     - target: {fileID: 4340486989277675333, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
-      propertyPath: Priority
-      value: 167
+      propertyPath: Pan2D
+      value: 0.66
       objectReference: {fileID: 0}
     - target: {fileID: 4340486989277675333, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
       propertyPath: m_Volume
-      value: 0.576
+      value: 0.304
       objectReference: {fileID: 0}
     - target: {fileID: 4340486989277675333, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: -7511503698707101440, guid: c68d2d09ffd68eb43bb26a9cc745887a, type: 2}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0.166
+      objectReference: {fileID: 0}
     - target: {fileID: 8582328919246954537, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
       propertyPath: m_RootOrder
       value: 1
