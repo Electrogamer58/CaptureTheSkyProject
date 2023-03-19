@@ -12,7 +12,7 @@ public class NodeMovement : MonoBehaviour
     [SerializeField] Vector2 _startingNodeCoordinates;
     [SerializeField] SpriteRenderer _targetSprite;
     [SerializeField] Vector3 _axis = Vector3.forward;
-    [SerializeField] string myTeam = null;
+    [SerializeField] public string myTeam = null;
 
     [Header("Movement Setting")]
     [SerializeField] float _movementSpeed = 2f;
@@ -101,7 +101,7 @@ public class NodeMovement : MonoBehaviour
                 {
                     MakeParticles(_playerParticles, true);
                 }
-                _myAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.2f);
+                _myAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
                 _myAudioSource.PlayOneShot(_nodeMovementClip);
 
                 NodePair edge = new NodePair(_lastNode, CurrentNode);
@@ -301,6 +301,7 @@ public class NodeMovement : MonoBehaviour
         var _newLineController = _newLineRenderer.GetComponent<LineController>();
         _newLineController.nodeTransforms.Add(startPoint);
         _newLineController.nodeTransforms.Add(targetPoint);
+        _newLineController._myParent = this;
         _newLineController.Team = myTeam; //set names to be equal
         _newLineController.AddNodes(_lastNode, CurrentNode);
 
@@ -350,17 +351,25 @@ public class NodeMovement : MonoBehaviour
         //Debug.Log(collision);
         if (collision.GetComponent<LineController>())
         {
+            var controller = collision.GetComponent<LineController>();
+            if (controller.Team != null)
+            {
+                if (controller.Team == myTeam)
+                {
+                    //Debug.Log("increased speed");
+                    _movementSpeed = _increasedMovementSpeed;
+                    
+                }
+                else if (controller.Team != myTeam)
+                {
+                    _movementSpeed = _decreasedMovementSpeed;
+                    //collision.gameObject.SetActive(false);
+                    //NodePair edge = new NodePair(controller.nodes[0], controller.nodes[1]);
+                    //Edges.Remove(edge);
+                }
+            }
             //Debug.Log("entered collider line");
-            if (collision.GetComponent<LineController>().Team == myTeam)
-            {
-                //Debug.Log("increased speed");
-                _movementSpeed = _increasedMovementSpeed;
-                
-            }
-            else
-            {
-                _movementSpeed = _decreasedMovementSpeed;
-            }
+            
         }
     }
 

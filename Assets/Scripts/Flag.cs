@@ -24,6 +24,7 @@ public class Flag : MonoBehaviour
     TriangleObject _currentTri = null;
     PlayerObject _controller = null;
     float _currentCaptureProgress = 0;
+    bool _collected = false;
 
 
     public static event Action<Flag> FlagCollected;
@@ -57,18 +58,24 @@ public class Flag : MonoBehaviour
         FlagCollected?.Invoke(this);
         //_enterParticleSystem.Play();
 
-        if (player.Team == "Player 1")
+        if (player.Team == "Player 1" && !_collected)
         {
             transform.position = _player1Side.position;
             gameObject.transform.parent = _player1Side;
             gameObject.GetComponent<Rigidbody2D>().WakeUp();
+            _myAudioSource.pitch = Random.Range(0.9f, 1.1f);
+            _myAudioSource.Play();
+            _collected = true;
             //gameObject.layer = 5;
         }
-        if (player.Team == "Player 2")
+        if (player.Team == "Player 2" && !_collected)
         {
             transform.position = _player2Side.position;
             gameObject.transform.parent = _player2Side;
             gameObject.GetComponent<Rigidbody2D>().WakeUp();
+            _myAudioSource.pitch = Random.Range(0.9f, 1.1f);
+            _myAudioSource.Play();
+            _collected = true;
         }
 
         //gameObject.layer = 5;

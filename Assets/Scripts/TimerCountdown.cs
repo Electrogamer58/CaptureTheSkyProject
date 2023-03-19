@@ -68,7 +68,7 @@ public class TimerCountdown : MonoBehaviour
         }
         if ((val <= 0.2f) && (val > 0))
         {
-            _chromaticAberration.intensity.value += 0.0003f;
+            _chromaticAberration.intensity.value += 0.0001f;
             _tickingNoise.Play();//BUG: wont play??
         }
 
