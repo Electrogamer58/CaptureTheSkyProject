@@ -1114,7 +1114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2596,42 +2596,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1854024938, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
-      propertyPath: m_Time
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1854024938, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1854024938, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
-      propertyPath: m_Emitting
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1854024938, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
-      propertyPath: m_Parameters.numCapVertices
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1854024938, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1854024938, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1854024938, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
-      value: 0.6067776
-      objectReference: {fileID: 0}
-    - target: {fileID: 1854024938, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 0.15275192
-      objectReference: {fileID: 0}
-    - target: {fileID: 1854024938, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3985487005350020786, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -2684,14 +2648,6 @@ PrefabInstance:
       propertyPath: lineListParent
       value: 
       objectReference: {fileID: 683506496}
-    - target: {fileID: 3985487005350020791, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
-      propertyPath: _movementSpeedMultiplier
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8938625537829897956, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
-      propertyPath: Team
-      value: Player 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
 --- !u!1 &1555625479
@@ -2830,7 +2786,7 @@ MonoBehaviour:
   _player1: {fileID: 689626322}
   _player2: {fileID: 411398731}
   _gameStart: 1
-  _roundTime: 30
+  _roundTime: 120
   _gameOverUI: {fileID: 1142090254}
   _endText: {fileID: 1147853235}
   _score1: {fileID: 1182461120}
@@ -3543,46 +3499,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4861006731480301486, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
-      propertyPath: Team
-      value: Player 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4869642943265236871, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
-      propertyPath: m_Time
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4869642943265236871, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4869642943265236871, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
-      propertyPath: m_Emitting
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4869642943265236871, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
-      propertyPath: m_Parameters.numCapVertices
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4869642943265236871, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4869642943265236871, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
-      value: 0.6071429
-      objectReference: {fileID: 0}
-    - target: {fileID: 4869642943265236871, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 0.15384674
-      objectReference: {fileID: 0}
-    - target: {fileID: 4869642943265236871, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5061295606154386199, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8582328919246954537, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -3628,32 +3544,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8582328919246954540, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
-      propertyPath: _lineRenderer
-      value: 
-      objectReference: {fileID: 4891835756500317126, guid: e31e413a2f2a94780ab9f16aae08dffa, type: 3}
-    - target: {fileID: 8582328919246954540, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
       propertyPath: lineListParent
       value: 
       objectReference: {fileID: 376203780}
-    - target: {fileID: 8582328919246954540, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
-      propertyPath: _movementSpeedMultiplier
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8582328919246954540, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
-      propertyPath: _startingNodeCoordinates.x
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8582328919246954540, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
-      propertyPath: _startingNodeCoordinates.y
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8582328919246954541, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
       propertyPath: m_Name
       value: Player 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8582328919246954541, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}

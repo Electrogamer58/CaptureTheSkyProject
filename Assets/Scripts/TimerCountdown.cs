@@ -49,9 +49,9 @@ public class TimerCountdown : MonoBehaviour
             val = Mathf.Clamp(val, 0.0f, 1.0f);
             _circleSlider.UpdateSlider(val);
         }
-        if (val <= 0.2f)
+        if ((val <= 0.2f) && (val > 0))
         {
-            _chromaticAberration.intensity.value += 0.0001f;
+            _chromaticAberration.intensity.value += 0.0003f;
         }
 
         if (val <= 0)
@@ -86,7 +86,7 @@ public class TimerCountdown : MonoBehaviour
 
             yield return new WaitForSeconds(1);
 
-            _tempScore += _planet._pointValue;
+            _tempScore += Mathf.CeilToInt(_planet._pointValue);
             _score1.text = _tempScore.ToString();
             _planet.gameObject.SetActive(false);
 
@@ -104,7 +104,7 @@ public class TimerCountdown : MonoBehaviour
 
             yield return new WaitForSeconds(1);
 
-            _tempScore += _planet._pointValue;
+            _tempScore += Mathf.CeilToInt(_planet._pointValue);
             _score2.text = _tempScore2.ToString();
             _planet.gameObject.SetActive(false);
 
