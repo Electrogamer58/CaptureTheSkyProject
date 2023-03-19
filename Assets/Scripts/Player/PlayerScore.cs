@@ -7,8 +7,9 @@ public class PlayerScore : MonoBehaviour
 {
     [SerializeField] public string Team { get; private set; } = null;
     [SerializeField] UnityEvent<float> OnScorePoints;
+    [SerializeField] public List<Flag> _flagList;
 
-    float _score = 0;
+    public float _score = 0;
 
     public void GivePoints(float amount)
     {

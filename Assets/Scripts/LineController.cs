@@ -9,7 +9,8 @@ using UnityEngine;
 [RequireComponent(typeof(LineController))]
 public class LineController : MonoBehaviour
 {
-    [SerializeField] public List<Transform> nodes;
+    [SerializeField] public List<NodeObject> nodes;
+    [SerializeField] public List<Transform> nodeTransforms;
     [SerializeField] public string Team = null;
     [SerializeField] public float Lifetime = 10f;
     LineRenderer lr;
@@ -18,14 +19,13 @@ public class LineController : MonoBehaviour
     void Start()
     {
         lr = GetComponent<LineRenderer>();
-        lr.positionCount = nodes.Count;
+        lr.positionCount = nodeTransforms.Count;
     }
 
     // Update is called once per frame
     void Update()
     {
-  
-        lr.SetPositions(nodes.ConvertAll(n => n.position - new Vector3(0, 0, 5)).ToArray());
+        lr.SetPositions(nodeTransforms.ConvertAll(n => n.position - new Vector3(0, 0, 5)).ToArray());
 
         Lifetime -= Time.deltaTime;
         if (Lifetime <= 0)
@@ -43,5 +43,11 @@ public class LineController : MonoBehaviour
 
     public float GetWidth() {
         return lr.startWidth;
+    }
+
+    public void AddNodes(NodeObject node1, NodeObject node2)
+    {
+        nodes.Add(node1);
+        nodes.Add(node2);
     }
 }

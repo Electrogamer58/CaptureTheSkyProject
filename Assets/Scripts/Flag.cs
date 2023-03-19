@@ -8,8 +8,12 @@ public class Flag : MonoBehaviour
 {
     // Change PlayerHasControl to work with new triangle class
     
-    [SerializeField] float _pointValue = 10f;
+    [SerializeField] public float _pointValue = 10f;
     [SerializeField] float _captureSpeed = 0.25f;
+
+    [Header("Feedback")]
+    [SerializeField] public ParticleSystem _myParticleSystem;
+    //[SerializeField] public AudioSource _myAudioSource;
 
     List<NodeObject> _points = new List<NodeObject>();
     TriangleObject _currentTri = null;

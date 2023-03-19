@@ -27,8 +27,8 @@ public class NodeMovement : MonoBehaviour
     [SerializeField] private LineRenderer _lineRenderer = null;
     [SerializeField] private List<LineRenderer> _lineList = null;
     [SerializeField] private GameObject lineListParent;
-    // [SerializeField] private SpriteShapeController _spriteShape = null;
-    // [SerializeField] private List<SpriteShapeController> _shapeList = null;
+    //[SerializeField] private SpriteShapeController _spriteShape = null;
+    [SerializeField] private List<SpriteShapeController> _shapeList = null;
 
     [SerializeField] public bool inMyLine = false;
     public NodeObject CurrentNode { get; private set; }
@@ -75,6 +75,8 @@ public class NodeMovement : MonoBehaviour
         _increasedMovementSpeed = _movementSpeed *= _movementSpeedMultiplier;
         _decreasedMovementSpeed = _movementSpeed /= 2;
         _myPlayerObject = gameObject.GetComponent<PlayerObject>();
+
+        _shapeList.AddRange(FindObjectsOfType<SpriteShapeController>());
     }
 
     void Update()
@@ -268,10 +270,10 @@ public class NodeMovement : MonoBehaviour
             if (renderer.gameObject.activeSelf == true)
             {
                 var controller = renderer.GetComponent<LineController>();
-                for (int i = 0; i < controller.nodes.Count-1; i++)
+                for (int i = 0; i < controller.nodeTransforms.Count-1; i++)
                 {
-                    if ((controller.nodes[i] == startPoint && controller.nodes[i+1] == targetPoint) || 
-                        (controller.nodes[i] == targetPoint && controller.nodes[i+1] == startPoint))
+                    if ((controller.nodeTransforms[i] == startPoint && controller.nodeTransforms[i+1] == targetPoint) || 
+                        (controller.nodeTransforms[i] == targetPoint && controller.nodeTransforms[i+1] == startPoint))
                     {
                         Debug.Log("Line already exists, returning");
                         inMyLine = true;
@@ -280,7 +282,19 @@ public class NodeMovement : MonoBehaviour
                 }
             } else if (renderer.gameObject.activeSelf == false)
             {
+                var controller = renderer.GetComponent<LineController>();
                 _lineList.Remove(renderer);
+                //foreach (SpriteShapeController controller in _shapeList)
+                //{
+                //    controller.GetComponent<TriangleObject>().CheckPlayerControl(_myPlayerObject, );
+                //}
+                NodePair edge = new NodePair(controller.nodes[0], controller.nodes[1]);
+                _edges.Remove(edge);
+                foreach (TriangleObject triangleObj in CurrentNode.TriangleObjs)
+                {
+                   triangleObj.CheckPlayerControl(_myPlayerObject, _edges);
+                }
+
                 Destroy(renderer.gameObject);
                 break;
             }
@@ -292,9 +306,12 @@ public class NodeMovement : MonoBehaviour
         _lineList.Add(_newLineRenderer);
         inMyLine = false;
         _newLineRenderer.gameObject.SetActive(true);
-        _newLineRenderer.GetComponent<LineController>().nodes.Add(startPoint);
-        _newLineRenderer.GetComponent<LineController>().nodes.Add(targetPoint);
-        _newLineRenderer.GetComponent<LineController>().Team = myTeam; //set names to be equal
+        var _newLineController = _newLineRenderer.GetComponent<LineController>();
+        _newLineController.nodeTransforms.Add(startPoint);
+        _newLineController.nodeTransforms.Add(targetPoint);
+        _newLineController.Team = myTeam; //set names to be equal
+        _newLineController.AddNodes(_lastNode, CurrentNode);
+
 
         #region Old RenderLine
         //OLD CODE//
@@ -335,27 +352,6 @@ public class NodeMovement : MonoBehaviour
 
 
     }
-
-   // private void RenderShape()
-   // {
-   //     foreach (LineRenderer renderer in _lineList)
-   //     {
-   //         for (int i = 0; i < _lineList.Count - 1; i++)
-   //         {
-   //             if ((_lineList[i].GetComponent<LineController>().nodes[0] == _lineList[i + 1].GetComponent<LineController>().nodes[0]) || (_lineList[i].GetComponent<LineController>().nodes[0] == _lineList[i + 1].GetComponent<LineController>().nodes[1]) || (_lineList[i].GetComponent<LineController>().nodes[1] == _lineList[i + 1].[0]) || (_lineList[i].GetComponent<LineController>().nodes[1] == _lineList[i + 1].GetComponent<LineController>().nodes[1]))
-   //             {
-   //                 if ((_lineList[i].GetComponent<LineController>().nodes[0] == _lineList[i - 1].GetComponent<LineController>().nodes[0]) || (_lineList[i].GetComponent<LineController>().nodes[0] == _lineList[i - 1].GetComponent<LineController>().nodes[1]) || (_lineList[i].GetComponent<LineController>().nodes[1] == _lineList[i - 1].GetComponent<LineController>().nodes[0]) || (_lineList[i].GetComponent<LineController>().nodes[1] == _lineList[i - 1].GetComponent<LineController>().nodes[1]))
-   //                     Debug.Log("Create Shape");
-   //             }
-   //         }
-   //         //if (point1 && point2 && point3) //if three lines share 2 points
-   //         //{
-   //         //    //create new sprite shape
-   //         //    //add to list
-   //         //    //set points
-   //         //}
-   //     }
-   // }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
