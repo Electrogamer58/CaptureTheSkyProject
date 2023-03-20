@@ -26,6 +26,8 @@ public class TimerCountdown : MonoBehaviour
     [SerializeField] TMP_Text _score2;
     [SerializeField] GameObject _score2_total;
     [SerializeField] TMP_Text _winnerText;
+    [SerializeField] GameObject _menuButton;
+    [SerializeField] GameObject _restartButton;
 
     public Bloom _bloom;
     public ChromaticAberration _chromaticAberration;
@@ -159,6 +161,11 @@ public class TimerCountdown : MonoBehaviour
             _winnerText.text = "DRAW";
         }
         _winnerText.enabled = true;
+
+        yield return new WaitForSeconds(3);
+
+        _menuButton.SetActive(true);
+        _restartButton.SetActive(true);
 
         yield return new WaitForSeconds(10);
 

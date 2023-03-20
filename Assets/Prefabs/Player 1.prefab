@@ -5209,6 +5209,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _flagList: []
+  _scoreText: {fileID: 0}
+  _timer: {fileID: 0}
   _score: 0
 --- !u!50 &3601544609098202059
 Rigidbody2D:
@@ -5240,20 +5242,20 @@ AudioSource:
   m_GameObject: {fileID: 3985487005350020790}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -7511503698707101440, guid: c68d2d09ffd68eb43bb26a9cc745887a, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.291
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 167
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
-  Pan2D: 0
+  Pan2D: -0.66
   rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
@@ -5287,7 +5289,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.199
       inSlope: 0
       outSlope: 0
       tangentMode: 0

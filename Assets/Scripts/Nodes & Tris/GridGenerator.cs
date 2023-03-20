@@ -48,7 +48,7 @@ public class GridGenerator : MonoBehaviour
     {
         //reset values
         transform.position = Vector2.zero;
-        transform.position = new Vector3(1.15f, 22, 0);
+        
         _nodes = null;
         _nodePairs = new List<NodePair>();
         //pairCount = 0;
@@ -86,6 +86,7 @@ public class GridGenerator : MonoBehaviour
         cam.transform.position = new Vector3(_centerPoint.x, _centerPoint.y, cam.transform.position.z);
         cam.orthographicSize = gridDimensions * TRIWIDTH * 0.5f;
         //cam.fieldOfView = 6 * gridDimensions * TRIWIDTH;
+        transform.position = new Vector3(0.45f, 0, 0);
 
         GridGenerated?.Invoke();
         TrianglesConstructed?.Invoke();
