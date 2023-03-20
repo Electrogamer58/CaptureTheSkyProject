@@ -37,7 +37,7 @@ public class GridGenerator : MonoBehaviour
     private void Start()
     {
         ClearGrid();
-        transform.position = new Vector3(0.45f, 0, 0);
+        
 
         if (generateOnStartup)
         {
@@ -48,6 +48,7 @@ public class GridGenerator : MonoBehaviour
     {
         //reset values
         transform.position = Vector2.zero;
+        transform.position = new Vector3(1.15f, 22, 0);
         _nodes = null;
         _nodePairs = new List<NodePair>();
         //pairCount = 0;
