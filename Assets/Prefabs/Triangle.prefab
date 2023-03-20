@@ -149,7 +149,7 @@ MonoBehaviour:
       corner: 1
       m_CornerMode: 2
   m_SpriteShape: {fileID: 0}
-  m_FillPixelPerUnit: 100
+  m_FillPixelPerUnit: 1
   m_StretchTiling: 1
   m_SplineDetail: 16
   m_AdaptiveUV: 1
