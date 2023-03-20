@@ -54,7 +54,7 @@ public class Flag : MonoBehaviour
 
     public void Collect(PlayerScore player)
     {
-        player.GivePoints(_pointValue);
+        
         FlagCollected?.Invoke(this);
         //_enterParticleSystem.Play();
 
@@ -81,6 +81,11 @@ public class Flag : MonoBehaviour
         //gameObject.layer = 5;
         
         //Destroy(gameObject);
+    }
+
+    public void EndCollect(PlayerScore player)
+    {
+        player.GivePoints(_pointValue);
     }
 
     public void ProgressCapture(float amount, PlayerObject player)
