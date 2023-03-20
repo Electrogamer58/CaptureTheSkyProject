@@ -22,7 +22,9 @@ public class TimerCountdown : MonoBehaviour
     [SerializeField] TMP_Text _gameOverUI;
     [SerializeField] TMP_Text _endText;
     [SerializeField] TMP_Text _score1;
+    [SerializeField] GameObject _score1_total;
     [SerializeField] TMP_Text _score2;
+    [SerializeField] GameObject _score2_total;
     [SerializeField] TMP_Text _winnerText;
 
     public Bloom _bloom;
@@ -82,6 +84,7 @@ public class TimerCountdown : MonoBehaviour
 
     IEnumerator EndGame()
     {
+        _gameStart = false;
         //_tickingNoise.Stop();
         _chromaticAberration.intensity.value += 1;
         _lensDistortion.intensity.value -= 10;
@@ -95,7 +98,8 @@ public class TimerCountdown : MonoBehaviour
 
         yield return new WaitForSeconds(1);
 
-        float _tempScore = _player1._score;
+        int _tempScore = Mathf.CeilToInt(_player1._score);
+        _score1_total.gameObject.SetActive(true);
         _score1.enabled = true;
         _score1.text = _tempScore.ToString();
 
@@ -104,16 +108,26 @@ public class TimerCountdown : MonoBehaviour
         {
             _planet._myParticleSystem.Play();
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(3);
 
-            _tempScore += Mathf.CeilToInt(_planet._pointValue);
+            for (int i = 0; i < _planet._pointValue; i++)
+            {
+                // add a point to the object
+                _planet.EndCollect(_player1);
+                // wait for the specified delay before adding another point
+                yield return new WaitForSeconds(3);
+            }
+
+            //_tempScore += Mathf.CeilToInt(_planet._pointValue);
+            
             _score1.text = _tempScore.ToString();
             _planet.gameObject.SetActive(false);
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(3);
         }
 
-        float _tempScore2 = _player2._score;
+        int _tempScore2 = Mathf.CeilToInt(_player2._score);
+        _score2_total.gameObject.SetActive(true);
         _score2.enabled = true;
         _score2.text = _tempScore2.ToString();
 
@@ -122,15 +136,18 @@ public class TimerCountdown : MonoBehaviour
         {
             _planet._myParticleSystem.Play();
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(3);
 
-            _tempScore += Mathf.CeilToInt(_planet._pointValue);
+            //_tempScore += Mathf.CeilToInt(_planet._pointValue);
+            _planet.EndCollect(_player1);
             _score2.text = _tempScore2.ToString();
             _planet.gameObject.SetActive(false);
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(3);
         }
 
+
+        yield return new WaitForSeconds(1);
         if (_tempScore > _tempScore2)
         {
             _winnerText.text = "Sun Wins!";

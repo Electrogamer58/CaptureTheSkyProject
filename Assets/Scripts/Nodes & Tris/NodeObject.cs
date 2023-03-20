@@ -26,7 +26,10 @@ public class NodeObject : SelectableNode
     {
         GridGenerator.GridGenerated -= ConstructTriangles;
     }
-    
+    private void Awake()
+    {
+        transform.Rotate(0, 0, Random.Range(0f, 360f));
+    }
     private void Start()
     {
         //ResetNeighbors();
