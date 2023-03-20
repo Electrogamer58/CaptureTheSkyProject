@@ -51,6 +51,7 @@ public class NodeMovement : MonoBehaviour
     void OnEnable()
     {
         GridGenerator.GridGenerated += OnGridGenerate;
+        TriangleObject.TriangleBroken += OnTriangleBroken;
         CaptureEdge += OnEdgeCaptured;
         
         _playerActions = GetComponent<PlayerInput>().currentActionMap;
@@ -66,6 +67,7 @@ public class NodeMovement : MonoBehaviour
     void OnDisable()
     {
         GridGenerator.GridGenerated -= OnGridGenerate;
+        TriangleObject.TriangleBroken -= OnTriangleBroken;
         CaptureEdge -= OnEdgeCaptured;
         
         _playerActions["Previous"].performed -= TargetPreviousNode;
@@ -136,6 +138,55 @@ public class NodeMovement : MonoBehaviour
         if (_myPlayerObject != player)
         {
             Edges.Remove(edge);
+
+            /*
+            List<LineRenderer> linesToRemove = new List<LineRenderer>();
+
+            foreach (LineRenderer line in _lineList)
+            {
+                if (line.gameObject.activeSelf == true)
+                {
+                    LineController controller = line.GetComponent<LineController>();
+                    if ((controller.nodes[0].Node == edge.First || controller.nodes[1].Node == edge.First) ||
+                        (controller.nodes[0].Node == edge.Second || controller.nodes[1].Node == edge.Second))
+                    {
+                        linesToRemove.Add(line);
+                    }
+                }
+            }
+
+            foreach (LineRenderer badLine in linesToRemove)
+            {
+                _lineList.Remove(badLine);
+                Destroy(badLine.gameObject);
+            }
+            */
+        }
+    }
+
+    void OnTriangleBroken(Triangle brokenTri, PlayerObject playerWhoLostTri)
+    {
+        if (_myPlayerObject == playerWhoLostTri)
+        {
+            List<LineRenderer> linesToRemove = new List<LineRenderer>();
+
+            foreach (LineRenderer line in _lineList)
+            {
+                if (line.gameObject.activeSelf == true)
+                {
+                    LineController controller = line.GetComponent<LineController>();
+                    if (brokenTri.Points.Contains(controller.nodes[0]) && brokenTri.Points.Contains(controller.nodes[1]))
+                    {
+                        linesToRemove.Add(line);
+                    }
+                }
+            }
+
+            foreach (LineRenderer badLine in linesToRemove)
+            {
+                _lineList.Remove(badLine);
+                Destroy(badLine.gameObject);
+            }
         }
     }
 

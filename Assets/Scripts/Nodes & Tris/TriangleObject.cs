@@ -16,6 +16,8 @@ public class TriangleObject : MonoBehaviour, IEquatable<TriangleObject>
     public SpriteShapeRenderer spriteShapeRenderer;
     public LayerMask layerMask;
 
+    public static Action<Triangle, PlayerObject> TriangleBroken;
+
     bool playedAudio = false;
     
     public bool Equals(TriangleObject other)
@@ -102,7 +104,7 @@ public class TriangleObject : MonoBehaviour, IEquatable<TriangleObject>
             (Tri.Points[0].Node == edge.Second || Tri.Points[1].Node == edge.Second || Tri.Points[2].Node == edge.Second))
         {
             CheckPlayerControl(player);
-            FindEnemyEdges();
+            // FindEnemyEdges();
         }
     }
 
@@ -117,10 +119,10 @@ public class TriangleObject : MonoBehaviour, IEquatable<TriangleObject>
         if (hasAB && hasAC && hasBC)
         {
             Owner = player;
-            Debug.Log(Owner.gameObject.name);
         }
         else if (Owner != player && Owner != null && (hasAB || hasAC || hasBC))
         {
+            TriangleBroken?.Invoke(Tri, Owner);
             Owner = null;
         }
 
@@ -151,6 +153,7 @@ public class TriangleObject : MonoBehaviour, IEquatable<TriangleObject>
         return closestObject;
     }
 
+    /*
     private void FindEnemyEdges()
     {
         GameObject closestObject = FindClosestObjectOfType<TriangleObject>(transform.position);
@@ -170,4 +173,5 @@ public class TriangleObject : MonoBehaviour, IEquatable<TriangleObject>
             }
         }
     }
+    */
 }
