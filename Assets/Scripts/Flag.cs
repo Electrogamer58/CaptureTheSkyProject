@@ -65,6 +65,8 @@ public class Flag : MonoBehaviour
             gameObject.GetComponent<Rigidbody2D>().WakeUp();
             _myAudioSource.pitch = Random.Range(0.9f, 1.1f);
             _myAudioSource.Play();
+            player.GivePoints(_pointValue);
+            player._flagList.Add(this);
             _collected = true;
             //gameObject.layer = 5;
         }
@@ -74,6 +76,8 @@ public class Flag : MonoBehaviour
             gameObject.transform.parent = _player2Side;
             gameObject.GetComponent<Rigidbody2D>().WakeUp();
             _myAudioSource.pitch = Random.Range(0.9f, 1.1f);
+            player.GivePoints(_pointValue);
+            player._flagList.Add(this);
             _myAudioSource.Play();
             _collected = true;
         }
@@ -104,6 +108,7 @@ public class Flag : MonoBehaviour
             if (_currentCaptureProgress == 1)
             {
                 Collect(player.Score);
+                
             }
         }
         if (_currentCaptureProgress < 1)

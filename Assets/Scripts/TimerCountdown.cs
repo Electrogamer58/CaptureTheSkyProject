@@ -94,6 +94,7 @@ public class TimerCountdown : MonoBehaviour
     IEnumerator EndGame()
     {
         _gameStart = false;
+        
         //_tickingNoise.Stop();
         _chromaticAberration.intensity.value += 1;
         _lensDistortion.intensity.value -= 10;
@@ -113,27 +114,22 @@ public class TimerCountdown : MonoBehaviour
         _score1.text = _tempScore.ToString();
 
         yield return new WaitForSeconds(1);
+        //Debug.Log(_player1._flagList.Count);
         foreach (Flag _planet in _player1._flagList)
         {
             _planet._myParticleSystem.Play();
 
-            yield return new WaitForSeconds(3);
-
-            for (int i = 0; i < _planet._pointValue; i++)
-            {
-                // add a point to the object
-                _planet.EndCollect(_player1);
-                // wait for the specified delay before adding another point
-                yield return new WaitForSeconds(3);
-            }
+            //yield return new WaitForSeconds(3);
 
             //_tempScore += Mathf.CeilToInt(_planet._pointValue);
-            
+            _planet.EndCollect(_player1);
+            _tempScore = Mathf.CeilToInt(_player1._score);
             _score1.text = _tempScore.ToString();
             _planet.gameObject.SetActive(false);
 
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(.5f);
         }
+
 
         int _tempScore2 = Mathf.CeilToInt(_player2._score);
         _score2_total.gameObject.SetActive(true);
@@ -145,14 +141,15 @@ public class TimerCountdown : MonoBehaviour
         {
             _planet._myParticleSystem.Play();
 
-            yield return new WaitForSeconds(3);
+            //yield return new WaitForSeconds(3);
 
             //_tempScore += Mathf.CeilToInt(_planet._pointValue);
             _planet.EndCollect(_player1);
+            _tempScore2 = Mathf.CeilToInt(_player2._score);
             _score2.text = _tempScore2.ToString();
             _planet.gameObject.SetActive(false);
 
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(0.5f);
         }
 
 
@@ -175,6 +172,8 @@ public class TimerCountdown : MonoBehaviour
         _restartButton.SetActive(true);
 
         yield return new WaitForSeconds(10);
+
+        Time.timeScale = 0f;
 
     }
 }
