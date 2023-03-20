@@ -6,23 +6,36 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    private static SceneLoader instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
 
-    public void LoadSceneAsync(string sceneName)
+    public static SceneLoader Instance
     {
-        StartCoroutine(LoadSceneAsyncCoroutine(sceneName));
-    }
-
-    private IEnumerator LoadSceneAsyncCoroutine(string sceneName)
-    {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
-
-        while (!asyncLoad.isDone)
+        get
         {
-            yield return null;
+            if (instance == null)
+            {
+                instance = new GameObject("SceneLoader").AddComponent<SceneLoader>();
+                DontDestroyOnLoad(instance.gameObject);
+            }
+            return instance;
         }
     }
 }

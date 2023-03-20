@@ -1050,7 +1050,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 1082667680, guid: 15f50c32d722e774dbc8abd6507c5ca0, type: 3}
-  m_Color: {r: 0.8269461, g: 0.7244571, b: 0.8301887, a: 1}
+  m_Color: {r: 0.6357937, g: 0.48718402, b: 0.6415094, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1540,12 +1540,12 @@ AudioSource:
   m_GameObject: {fileID: 829614817}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1478599116641133275, guid: c68d2d09ffd68eb43bb26a9cc745887a, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 4070b084e220178489caee31501537da, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.233
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -3592,7 +3592,6 @@ GameObject:
   - component: {fileID: 1559191658}
   - component: {fileID: 1559191657}
   - component: {fileID: 1559191659}
-  - component: {fileID: 1559191660}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3749,18 +3748,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1559191660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1559191656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95ecbe71cf58b254d95b2b8a4f424e1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1577402520
 GameObject:
   m_ObjectHideFlags: 0
@@ -4115,7 +4102,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1559191660}
+      - m_Target: {fileID: 1080264342125462507, guid: cc23b94ef4c5e054ab87416898539308, type: 3}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5
@@ -4124,7 +4111,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: GridTesting
+          m_StringArgument: Game
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1759867846
@@ -4253,7 +4240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeTrigger: {fileID: 1016317685}
+  volumeTrigger: {fileID: 1827218314}
   volumeLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -5059,7 +5046,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2129988748}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1080264342125462507, guid: cc23b94ef4c5e054ab87416898539308, type: 3}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MainMenu
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2129988748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5105,6 +5104,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 718573410}
     m_Modifications:
+    - target: {fileID: 4536260158986167058, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4536260158986167058, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4536260158986167058, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4861006731480301486, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
       propertyPath: _scoreText
       value: 
