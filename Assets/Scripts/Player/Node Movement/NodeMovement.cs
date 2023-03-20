@@ -225,8 +225,12 @@ public class NodeMovement : MonoBehaviour
             }
             else
             {
-                _target = CurrentNode.Neighbors[0];
-                _targetSprite.transform.position = _target.transform.position;
+                if (CurrentNode)
+                {
+                    _target = CurrentNode.Neighbors[0];
+                    _targetSprite.transform.position = _target.transform.position;
+                }
+                    
             }
         }
     }
@@ -266,8 +270,13 @@ public class NodeMovement : MonoBehaviour
             }
             else
             {
-                _target = CurrentNode.Neighbors[0];
-                _targetSprite.transform.position = _target.transform.position;
+                if (CurrentNode)
+                {
+                    _target = CurrentNode.Neighbors[0];
+                    _targetSprite.transform.position = _target.transform.position;
+
+                }
+                
             }
         }
     }

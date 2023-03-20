@@ -42,6 +42,7 @@ public class TimerCountdown : MonoBehaviour
         _postProcessVolume.profile.TryGetSettings(out _chromaticAberration);
         _postProcessVolume.profile.TryGetSettings(out _lensDistortion);
         _postProcessVolume.profile.TryGetSettings(out _bloom);
+        Time.timeScale = 0f;
     }
 
     // Update is called once per frame
@@ -82,6 +83,12 @@ public class TimerCountdown : MonoBehaviour
             //_tickingNoise.Stop();
             StartCoroutine(EndGame());
         }
+    }
+
+    public void StartTimer()
+    {
+        _gameStart = true;
+        Time.timeScale = 1f;
     }
 
     IEnumerator EndGame()
