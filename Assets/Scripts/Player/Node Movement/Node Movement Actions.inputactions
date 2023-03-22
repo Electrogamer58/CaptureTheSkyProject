@@ -159,6 +159,17 @@
                 },
                 {
                     "name": "",
+                    "id": "242c42d0-e16c-47f8-acca-8a6640ec4231",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Previous",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "05facd4c-0f68-44c7-aad2-73151a062701",
                     "path": "<Keyboard>/l",
                     "interactions": "",
@@ -181,6 +192,17 @@
                 },
                 {
                     "name": "",
+                    "id": "fc090e88-4737-4f9f-baa0-bbbb73d6a22c",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Next",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "dea43429-89ff-4e9d-9113-271364bbd22f",
                     "path": "<Keyboard>/i",
                     "interactions": "",
@@ -194,6 +216,17 @@
                     "name": "",
                     "id": "57d1534c-1edf-4259-b115-9fd73c9fb13c",
                     "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "87c13e97-bb38-4660-8e56-04ab2601ee21",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

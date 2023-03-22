@@ -23,6 +23,8 @@ public class GridGenerator : MonoBehaviour
     [SerializeField] private float gridRadius = 4f;
 
     [SerializeField] bool generateOnStartup = false;
+    [SerializeField] bool _addLines = true;
+    [SerializeField] GameObject _myLineRenderer = null;
 
     Node[] _nodes;
     public Dictionary<Vector2, NodeObject> _nodeObjectsDictionary { get; private set; }
@@ -87,6 +89,25 @@ public class GridGenerator : MonoBehaviour
         cam.orthographicSize = gridDimensions * TRIWIDTH * 0.5f;
         //cam.fieldOfView = 6 * gridDimensions * TRIWIDTH;
         transform.position = new Vector3(0.45f, 0, 0);
+
+       //if (_addLines)
+       //{
+       //    if (_nodePairs != null)
+       //    {
+       //        
+       //        foreach (var pair in _nodePairs)
+       //        {
+       //            Instantiate(_myLineRenderer);
+       //            Transform _pair1transform = pointPrefab.transform;
+       //            _pair1transform.position = new Vector3(pair.First.Xcoord, pair.First.Ycoord, _pair1transform.position.z);
+       //            _myLineRenderer.GetComponent<LineController>().nodeTransforms.Add(_pair1transform);
+       //            Transform _pair2transform = pointPrefab.transform;
+       //            _pair1transform.position = new Vector3(pair.Second.Xcoord, pair.Second.Ycoord, _pair2transform.position.z);
+       //            _myLineRenderer.GetComponent<LineController>().nodeTransforms.Add(_pair2transform);
+       //        }
+       //    }
+       //
+       //}
 
         GridGenerated?.Invoke();
         TrianglesConstructed?.Invoke();

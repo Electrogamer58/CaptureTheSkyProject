@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _flagPrefab: {fileID: 4868056214542473501, guid: 747e7bdeedaf64f369cf27df105375ec, type: 3}
-  _maxFlags: 3
+  _maxFlags: 5
   _minSpawnDelay: 5
   _maxSpawnDelay: 10
   _checkStep: 0.5

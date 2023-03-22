@@ -19671,7 +19671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79dba2256a2004694bebede280d6c4f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointValue: 10
+  _pointValue: 30
   _captureSpeed: 0.25
   _myParticleSystem: {fileID: 684485034726229752}
   _enterParticleSystem: {fileID: 8998937075225413728}
