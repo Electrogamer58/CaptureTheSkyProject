@@ -1242,7 +1242,7 @@ GameObject:
   - component: {fileID: 376203781}
   m_Layer: 0
   m_Name: P2 Line Renderers
-  m_TagString: Untagged
+  m_TagString: P2 Line Parent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1484,7 +1484,7 @@ GameObject:
   - component: {fileID: 683506497}
   m_Layer: 0
   m_Name: P1 Line Renderers
-  m_TagString: Untagged
+  m_TagString: P1 Line Parent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4025,18 +4025,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3985487005350020790, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3985487005350020791, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
       propertyPath: lineListParent
       value: 
       objectReference: {fileID: 683506496}
-    - target: {fileID: 3985487005350020791, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
-      propertyPath: _startingNodeCoordinates.y
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8198579292868435424, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
-      propertyPath: m_Volume
-      value: 0.372
-      objectReference: {fileID: 0}
     - target: {fileID: 8938625537829897956, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
       propertyPath: _scoreText
       value: 
@@ -4530,10 +4526,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NotificationBehavior: 2
+  m_NotificationBehavior: 0
   m_MaxPlayerCount: 2
-  m_AllowJoining: 0
-  m_JoinBehavior: 2
+  m_AllowJoining: 1
+  m_JoinBehavior: 0
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -4543,16 +4539,16 @@ MonoBehaviour:
   m_JoinAction:
     m_UseReference: 0
     m_Action:
-      m_Name: 
+      m_Name: Join
       m_Type: 0
       m_ExpectedControlType: 
-      m_Id: 
+      m_Id: d15cb88c-c3a1-4504-9f59-bfe7a248a627
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 0}
+  m_PlayerPrefab: {fileID: 3985487005350020790, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
@@ -6499,6 +6495,10 @@ PrefabInstance:
     - target: {fileID: 8582328919246954541, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
       propertyPath: m_Name
       value: Player 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8582328919246954541, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}

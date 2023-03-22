@@ -52,6 +52,8 @@ public class TimerCountdown : MonoBehaviour
     {
         if (_gameStart)
         {
+            Cursor.lockState = CursorLockMode.Locked;
+
             float timeElapsed = Time.deltaTime;
             float timeToSubtract = 1.0f / _roundTime;
             val -= timeElapsed * timeToSubtract;
@@ -96,7 +98,7 @@ public class TimerCountdown : MonoBehaviour
     IEnumerator EndGame()
     {
         _gameStart = false;
-        
+        Cursor.lockState = CursorLockMode.None;
         //_tickingNoise.Stop();
         _chromaticAberration.intensity.value += 1;
         _lensDistortion.intensity.value -= 10;

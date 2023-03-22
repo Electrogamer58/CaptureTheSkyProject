@@ -84,6 +84,10 @@ public class NodeMovement : MonoBehaviour
         _myPlayerObject = gameObject.GetComponent<PlayerObject>();
 
         _shapeList.AddRange(FindObjectsOfType<SpriteShapeController>());
+        if (myTeam == "Player 1")
+            lineListParent = GameObject.FindGameObjectWithTag("P1 Line Parent");
+        else if (myTeam == "Player 2")
+            lineListParent = GameObject.FindGameObjectWithTag("P2 Line Parent");
     }
 
     void Update()
@@ -190,7 +194,7 @@ public class NodeMovement : MonoBehaviour
         }
     }
 
-    void TargetNextNode(InputAction.CallbackContext value)
+    public void TargetNextNode(InputAction.CallbackContext value)
     {
         if (!Moving)
         {
@@ -235,7 +239,7 @@ public class NodeMovement : MonoBehaviour
         }
     }
 
-    void TargetPreviousNode(InputAction.CallbackContext value)
+    public void TargetPreviousNode(InputAction.CallbackContext value)
     {
         if (!Moving)
         {
@@ -281,7 +285,7 @@ public class NodeMovement : MonoBehaviour
         }
     }
 
-    void TravelToTargetNode(InputAction.CallbackContext value)
+    public void TravelToTargetNode(InputAction.CallbackContext value)
     {
         if (_target != null && !Moving)
         {

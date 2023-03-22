@@ -5129,7 +5129,55 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3985487005350020791}
+        m_TargetAssemblyTypeName: NodeMovement, Assembly-CSharp
+        m_MethodName: TargetPreviousNode
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b26a7680-47ec-4862-9fef-dfedcd99b475
+    m_ActionName: Player 1 Input/Previous[/Keyboard/a]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3985487005350020791}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 25808456-d25b-4f2c-8e06-c673856165ef
+    m_ActionName: Player 1 Input/Next[/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 78b5d551-9055-4016-9b1e-032478695844
+    m_ActionName: Player 1 Input/Confirm[/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dac5f446-91ed-4cab-ac6f-83c9a054e83e
+    m_ActionName: Player 2 Input/Previous[/Keyboard/j,/Keyboard/leftArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4502109c-97de-4d31-ad36-29608d3abdeb
+    m_ActionName: Player 2 Input/Next[/Keyboard/l,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 68921f45-4be7-4b86-aece-10dd949abd52
+    m_ActionName: Player 2 Input/Confirm[/Keyboard/i,/Keyboard/upArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player 1 Input
@@ -5147,7 +5195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df624d472e13044d685046daa76f8d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startingNodeCoordinates: {x: 0, y: 0}
+  _startingNodeCoordinates: {x: 0, y: 4}
   _targetSprite: {fileID: 3985487005388193384}
   _axis: {x: 0, y: 0, z: -1}
   myTeam: Player 1
@@ -5245,7 +5293,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -7511503698707101440, guid: c68d2d09ffd68eb43bb26a9cc745887a, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.291
+  m_Volume: 0.372
   m_Pitch: 1
   Loop: 0
   Mute: 0
