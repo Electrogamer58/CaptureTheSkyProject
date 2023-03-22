@@ -28,6 +28,8 @@ public class TimerCountdown : MonoBehaviour
     [SerializeField] TMP_Text _winnerText;
     [SerializeField] GameObject _menuButton;
     [SerializeField] GameObject _restartButton;
+    [SerializeField] AudioSource _endAudio;
+    [SerializeField] AudioClip _winnerSound;
 
     public Bloom _bloom;
     public ChromaticAberration _chromaticAberration;
@@ -103,17 +105,24 @@ public class TimerCountdown : MonoBehaviour
         yield return new WaitForSeconds(1);
         _gameOverUI.enabled = true;
 
-        yield return new WaitForSeconds(1);
+        if (!_endAudio.isPlaying)
+            _endAudio.PlayOneShot(_endAudio.clip);
+        yield return new WaitForSeconds(_endAudio.clip.length);
+        
         _endText.enabled = true;
+        if (!_endAudio.isPlaying)
+            _endAudio.PlayOneShot(_endAudio.clip);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(_endAudio.clip.length);
 
         int _tempScore = Mathf.CeilToInt(_player1._score);
         _score1_total.gameObject.SetActive(true);
         _score1.enabled = true;
         _score1.text = _tempScore.ToString();
+        if (!_endAudio.isPlaying)
+            _endAudio.PlayOneShot(_endAudio.clip);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(_endAudio.clip.length);
         //Debug.Log(_player1._flagList.Count);
         foreach (Flag _planet in _player1._flagList)
         {
@@ -135,8 +144,12 @@ public class TimerCountdown : MonoBehaviour
         _score2_total.gameObject.SetActive(true);
         _score2.enabled = true;
         _score2.text = _tempScore2.ToString();
+        if (!_endAudio.isPlaying)
+            _endAudio.Play();
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(_endAudio.clip.length);
+            _endAudio.Pause();
+
         foreach (Flag _planet in _player2._flagList)
         {
             _planet._myParticleSystem.Play();
@@ -153,7 +166,7 @@ public class TimerCountdown : MonoBehaviour
         }
 
 
-        yield return new WaitForSeconds(1);
+        //yield return new WaitForSeconds(1);
         if (_tempScore > _tempScore2)
         {
             _winnerText.text = "Sun Wins!";
@@ -165,9 +178,15 @@ public class TimerCountdown : MonoBehaviour
             _winnerText.text = "DRAW";
         }
         _winnerText.enabled = true;
+        if (!_endAudio.isPlaying)
+            _endAudio.clip = _winnerSound;
+            _endAudio.Play();
 
-        yield return new WaitForSeconds(3);
+        
 
+        yield return new WaitForSeconds(_endAudio.clip.length);
+        _endAudio.Stop();
+        _endAudio.volume = 0;
         _menuButton.SetActive(true);
         _restartButton.SetActive(true);
 
