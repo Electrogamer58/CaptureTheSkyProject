@@ -4030,6 +4030,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3985487005350020791, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
+      propertyPath: _debounceTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3985487005350020791, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
+      propertyPath: _joystickDebug
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3985487005350020791, guid: cdf468a72959e49c093b62cb1394dea0, type: 3}
       propertyPath: lineListParent
       value: 
       objectReference: {fileID: 683506496}
@@ -6479,6 +6487,14 @@ PrefabInstance:
     - target: {fileID: 8582328919246954537, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8582328919246954540, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
+      propertyPath: _debounceTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8582328919246954540, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
+      propertyPath: _joystickDebug
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8582328919246954540, guid: d634e0bc4fd93408bb81be9929a6b22e, type: 3}
       propertyPath: lineListParent

@@ -14,12 +14,15 @@ public class NodeMovement : MonoBehaviour
     [SerializeField] Vector3 _axis = Vector3.forward;
     [SerializeField] public string myTeam = null;
 
-    [Header("Movement Setting")]
+    [Header("Movement Settings")]
     [SerializeField] float _movementSpeed = 2f;
     [SerializeField] float _movementSpeedMultiplier = 2f;
     private float _originalMovementSpeed;
     private float _increasedMovementSpeed;
     private float _decreasedMovementSpeed;
+
+    [Header("Joystick Settings")]
+    [SerializeField] GameObject _joystickDebug;
 
     [Header("Visual Settings")]
     [SerializeField] private TrailRenderer _playerTrail;
@@ -59,6 +62,7 @@ public class NodeMovement : MonoBehaviour
         _playerActions["Previous"].performed += TargetPreviousNode;
         _playerActions["Next"].performed += TargetNextNode;
         _playerActions["Confirm"].performed += TravelToTargetNode;
+        _playerActions["Joystick"].performed += FindTargetFromJoystick;
         _playerActions.Enable();
 
         _currentMovementSpeed = _movementSpeed;
@@ -73,6 +77,7 @@ public class NodeMovement : MonoBehaviour
         _playerActions["Previous"].performed -= TargetPreviousNode;
         _playerActions["Next"].performed -= TargetNextNode;
         _playerActions["Confirm"].performed -= TravelToTargetNode;
+        _playerActions["Joystick"].performed += FindTargetFromJoystick;
         _playerActions.Disable();
     }
 
@@ -191,6 +196,34 @@ public class NodeMovement : MonoBehaviour
                 _lineList.Remove(badLine);
                 Destroy(badLine.gameObject);
             }
+        }
+    }
+
+    public void FindTargetFromJoystick(InputAction.CallbackContext value)
+    {
+        Vector2 joystickDir = value.ReadValue<Vector2>();
+
+        if (joystickDir != Vector2.zero)
+        {
+            Vector3 joystickDirAsV3 = new Vector3(joystickDir.x, joystickDir.y, 0);
+
+            NodeObject next = null;
+            float angleToNext = 360f;
+
+            foreach (NodeObject node in CurrentNode.Neighbors)
+            {
+                Vector3 dirToNode = node.transform.position - transform.position;
+                float angleToNode = Vector3.Angle(joystickDirAsV3, dirToNode);
+
+                if (angleToNode < angleToNext)
+                {
+                    next = node;
+                    angleToNext = angleToNode;
+                }
+            }
+
+            _target = next;
+            _targetSprite.transform.position = _target.transform.position;
         }
     }
 
